@@ -10,4 +10,4 @@ spec:
         - name: wordbook
           env:
             - name: FRONTEND_HOST
-              value: https://www.kaiand.kai.com
+              value: https://www.kaiandkai.com
