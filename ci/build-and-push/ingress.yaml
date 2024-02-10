@@ -1,0 +1,17 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ci-ingress
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: k8s.kaiandkai.com
+      http:
+        paths:
+          - path: /github-webhook
+            pathType: Prefix
+            backend:
+              service:
+                name: el-build-and-push-listener
+                port:
+                  number: 8080

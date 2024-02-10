@@ -1,0 +1,47 @@
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: deploy-task
+spec:
+  workspaces:
+    - name: manifest-dir
+  results:
+    - name: output-result
+      description: some result can be emitted if someone wants to.
+  params:
+    - name: KUBECTL_IMAGE
+      default: bitnami/kubectl
+      #default: gcr.io/cloud-builders/kubectl
+    - name: SERVICE_NAME
+      description: The name of the service to deploy
+    - name: IMAGE_URL
+      description: deployment target image url
+    - name: IMAGE_DIGEST
+      description: deployment target image digest
+    - name: MANIFEST_PATH
+
+  steps:
+    - name: kubectl
+      image: $(params.KUBECTL_IMAGE)
+      script: |
+        #!/usr/bin/env bash
+        [[ "$(workspaces.manifest-dir.bound)" == "true" ]] && \
+        cd $(workspaces.manifest-dir.path)/$(params.MANIFEST_PATH)
+
+        [[ "$(workspaces.kubeconfig-dir.bound)" == "true" ]] && \
+        [[ -f $(workspaces.kubeconfig-dir.path)/kubeconfig ]] && \
+        export KUBECONFIG=$(workspaces.kubeconfig-dir.path)/kubeconfig
+
+        echo "--- SHOW $(params.SERVICE_NAME) IMAGE_URL ---";
+        sed -ne "s;___IMAGE_URL___;$(params.IMAGE_URL);" \
+          -ne "s;___IMAGE_DIGEST___;$(params.IMAGE_DIGEST);p" \
+          ./services/$(params.SERVICE_NAME)/base/deployment.yaml;
+
+        echo "--- DEPLOY $(params.SERVICE_NAME) APP ---";
+        kubectl delete -f ./services/$(params.SERVICE_NAME)/base/deployment.yaml;
+        sed -e "s;___IMAGE_URL___;$(params.IMAGE_URL);g" \
+          -e "s;___IMAGE_DIGEST___;$(params.IMAGE_DIGEST);g" \
+          ./services/$(params.SERVICE_NAME)/base/deployment.yaml | kubectl apply -f - ;
+
+        echo "--- SHOW DEPLOYMENTS AND SERVECES ---";
+        kubectl get deployment,service;

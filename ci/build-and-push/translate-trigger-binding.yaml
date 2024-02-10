@@ -1,0 +1,24 @@
+apiVersion: triggers.tekton.dev/v1beta1
+kind: TriggerBinding
+metadata:
+  name: translate-build-and-push-trigger-binding
+spec:
+  params:
+    - name: github-app-subpath
+      value: translate
+    - name: github-manifest-subpath
+      value: translate-manifest
+    - name: service-name
+      value: translate
+    - name: git-user-name
+      value: $(body.pusher.name)
+    - name: git-user-email
+      value: $(body.pusher.email)
+    - name: image-name
+      value: uk1012/translate:$(body.head_commit.id)
+    - name: context
+      value: ./home-k8s-app/backend
+    - name: docker-file
+      value: /translate/Dockerfile
+    - name: cache-repo
+      value: translate-cache

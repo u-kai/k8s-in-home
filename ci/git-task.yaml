@@ -1,0 +1,35 @@
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: git-task
+spec:
+  workspaces:
+    - name: source
+  params:
+    - name: GIT_USER_NAME
+      type: string
+    - name: GIT_USER_EMAIL
+      type: string
+    - name: GIT_SCRIPT
+      type: string
+  results:
+    - name: commit
+      type: string
+
+  steps:
+    - name: git
+      image: alpine/git
+      workingDir: $(workspaces.source.path)
+      script: |
+        git config --global user.name "$(params.GIT_USER_NAME)"
+        git config --global user.email "$(params.GIT_USER_EMAIL)"
+        $(params.GIT_SCRIPT)
+
+        RESULT_SHA=$(git rev-parse HEAD | tr -d '\n')
+        EXIT_CODE=$?
+        if [ $EXIT_CODE -ne 0 ]; then
+          echo "Error: git command failed"
+          exit $EXIT_CODE
+        fi
+
+        echo -n "RESULT_SHA=$RESULT_SHA" >> $(results.commit.path)

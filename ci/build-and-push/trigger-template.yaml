@@ -1,0 +1,67 @@
+apiVersion: triggers.tekton.dev/v1beta1
+kind: TriggerTemplate
+metadata:
+  name: build-and-push-trigger-template
+
+spec:
+  params:
+    - name: git-user-name
+    - name: git-user-email
+    - name: service-name
+    - name: image-name
+    - name: github-app-subpath
+      default: app
+    - name: github-manifest-subpath
+      default: manifest
+    - name: context
+    - name: docker-file
+      default: Dockerfile
+    - name: cache-repo
+
+  resourcetemplates:
+    - apiVersion: tekton.dev/v1beta1
+      kind: PipelineRun
+      metadata:
+        generateName: build-and-push-run-
+      spec:
+        podTemplate:
+          nodeSelector:
+            ci: "true"
+          tolerations:
+            - key: "ci-node"
+              value: "true"
+              effect: "NoSchedule"
+        serviceAccountName: tekton-admin
+        pipelineRef:
+          name: build-and-push
+        params:
+          - name: app-repo-name
+            value: home-k8s-app
+          - name: manifest-repo-name
+            value: cnkm
+          - name: service-name
+            value: $(tt.params.service-name)
+          - name: git-user-name
+            value: $(tt.params.git-user-name)
+          - name: git-user-email
+            value: $(tt.params.git-user-email)
+          - name: image-name
+            value: $(tt.params.image-name)
+          - name: context
+            value: $(tt.params.context)
+          - name: docker-file
+            value: $(tt.params.docker-file)
+          - name: cache-repo
+            value: $(tt.params.cache-repo)
+        workspaces:
+          - name: git-source-app
+            persistentVolumeClaim:
+              claimName: tekton-pvc-app
+            subPath: $(tt.params.github-app-subpath)
+          - name: git-source-manifest
+            persistentVolumeClaim:
+              claimName: tekton-pvc
+            subPath: $(tt.params.github-manifest-subpath)
+          - name: docker-credentials
+            secret:
+              secretName: docker-credentials

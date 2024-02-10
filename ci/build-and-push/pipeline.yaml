@@ -1,0 +1,148 @@
+apiVersion: tekton.dev/v1beta1
+kind: Pipeline
+metadata:
+  name: build-and-push
+spec:
+  workspaces:
+    - name: git-source-app
+    - name: git-source-manifest
+    - name: docker-credentials
+  params:
+    - name: deploy-env
+      default: dev
+    - name: service-name
+      description: The name of the service to deploy
+    - name: git-user-name
+      description: The name of the user to use for git commits
+    - name: git-user-email
+      description: The email of the user to use for git commits
+    - name: app-repo-name
+      description: Name of the GitHub repository to clone from
+    - name: manifest-repo-name
+      description: Name of the GitHub repository to clone from
+    - name: image-name
+    - name: cache-repo
+    - name: context
+    - name: docker-file
+
+  tasks:
+    - name: git-clone-app
+      taskRef:
+        name: git-task
+      params:
+        - name: GIT_USER_NAME
+          value: $(params.git-user-name)
+        - name: GIT_USER_EMAIL
+          value: $(params.git-user-email)
+        - name: GIT_SCRIPT
+          value: |
+            git config --global --add safe.directory /workspace/source/$(params.app-repo-name)
+            if [ -d $(params.app-repo-name) ]; then
+              cd $(params.app-repo-name)
+              git pull origin main
+            else
+              git clone https://github.com/$(params.git-user-name)/$(params.app-repo-name)
+            fi
+      workspaces:
+        - name: source
+          workspace: git-source-app
+
+    - name: git-clone-manifest
+      taskRef:
+        name: git-task
+      params:
+        - name: GIT_USER_NAME
+          value: $(params.git-user-name)
+        - name: GIT_USER_EMAIL
+          value: $(params.git-user-email)
+        - name: GIT_SCRIPT
+          value: |
+            git config --global --add safe.directory /workspace/source/$(params.manifest-repo-name)
+            if [ -d $(params.manifest-repo-name) ]; then
+              cd $(params.manifest-repo-name)
+              git pull origin main
+            else
+              git clone https://github.com/$(params.git-user-name)/$(params.manifest-repo-name)
+            fi
+
+      workspaces:
+        - name: source
+          workspace: git-source-manifest
+
+    - name: build-and-push
+      runAfter:
+        - git-clone-app
+      taskRef:
+        name: kaniko
+      params:
+        - name: IMAGE
+          value: $(params.image-name)
+        - name: CONTEXT
+          value: $(params.context)
+        - name: DOCKERFILE
+          value: $(params.docker-file)
+        - name: EXTRA_ARGS
+          value:
+            - "--cache=true"
+            - --cache-repo=$(params.cache-repo)
+      workspaces:
+        - name: source
+          workspace: git-source-app
+        - name: dockerconfig
+          workspace: docker-credentials
+
+    - name: deploy-container
+      runAfter:
+        - build-and-push
+        - git-clone-manifest
+      taskRef:
+        name: deploy-task
+      params:
+        - name: SERVICE_NAME
+          value: $(params.service-name)
+        - name: IMAGE_URL
+          value: $(tasks.build-and-push.results.IMAGE_URL)
+        - name: IMAGE_DIGEST
+          value: $(tasks.build-and-push.results.IMAGE_DIGEST)
+        - name: MANIFEST_PATH
+          value: $(params.manifest-repo-name)
+      workspaces:
+        - name: manifest-dir
+          workspace: git-source-manifest
+
+    - name: update-manifest
+      taskRef:
+        name: kustomize
+      runAfter:
+        - deploy-container
+      workspaces:
+        - name: manifest-dir
+          workspace: git-source-manifest
+      params:
+        - name: KUSTOMIZE_SCRIPT
+          value: |
+            ls 
+            cd ./$(params.manifest-repo-name)/services/$(params.service-name)/overlays/$(params.deploy-env)
+            kustomize edit set image __IMAGE_URL__@__IMAGE_DIGEST__=$(tasks.build-and-push.results.IMAGE_URL)@$(tasks.build-and-push.results.IMAGE_DIGEST)
+            kustomize build .
+
+    - name: push-manifest
+      taskRef:
+        name: git-task
+      runAfter:
+        - update-manifest
+      workspaces:
+        - name: source
+          workspace: git-source-manifest
+      params:
+        - name: GIT_USER_NAME
+          value: $(params.git-user-name)
+        - name: GIT_USER_EMAIL
+          value: $(params.git-user-email)
+        - name: GIT_SCRIPT
+          value: |
+            cd $(params.manifest-repo-name)
+            git config --global --add safe.directory /workspace/source/$(params.manifest-repo-name)
+            git add .
+            git commit -m "Update manifest to $(tasks.build-and-push.results.IMAGE_URL)@$(tasks.build-and-push.results.IMAGE_DIGEST)"
+            git push origin HEAD:main

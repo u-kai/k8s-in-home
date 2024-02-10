@@ -1,0 +1,1 @@
+sed "s/SECRET/$GITHUB_WEBHOOK_SECRET/g" ci/build-and-push/github-webhook-secret.yaml | kubectl apply -f -
