@@ -5,7 +5,7 @@ metadata:
   labels:
     app: translate
 spec:
-  type: ClausterIP
+  type: ClusterIP
   selector:
     app: translate
   ports:
