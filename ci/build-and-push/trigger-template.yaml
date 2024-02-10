@@ -25,13 +25,13 @@ spec:
       metadata:
         generateName: build-and-push-run-
       spec:
-        podTemplate:
-          nodeSelector:
-            ci: "true"
-          tolerations:
-            - key: "ci-node"
-              value: "true"
-              effect: "NoSchedule"
+        #podTemplate:
+        #  nodeSelector:
+        #    ci: "true"
+        #  tolerations:
+        #    - key: "ci-node"
+        #      value: "true"
+        #      effect: "NoSchedule"
         serviceAccountName: tekton-admin
         pipelineRef:
           name: build-and-push

@@ -11,7 +11,6 @@ spec:
   params:
     - name: KUBECTL_IMAGE
       default: bitnami/kubectl
-      #default: gcr.io/cloud-builders/kubectl
     - name: SERVICE_NAME
       description: The name of the service to deploy
     - name: IMAGE_URL
