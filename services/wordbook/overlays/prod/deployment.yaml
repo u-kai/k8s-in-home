@@ -4,6 +4,7 @@ metadata:
   name: wordbook-deployment
 spec:
   replicas: 3
-  environment:
-    - name: FRONTEND_HOST
-      value: https://www.kaiand.kai.com
+  containers:
+    env:
+      - name: FRONTEND_HOST
+        value: https://www.kaiand.kai.com
