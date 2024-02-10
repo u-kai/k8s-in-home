@@ -4,7 +4,8 @@ metadata:
   name: translate-deployment
 spec:
   replicas: 3
-  containers:
-    env:
-      - name: FRONTEND_HOST
-        value: https://www.kaiand.kai.com
+  spec:
+    containers:
+      env:
+        - name: FRONTEND_HOST
+          value: https://www.kaiand.kai.com
