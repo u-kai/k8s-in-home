@@ -1,0 +1,30 @@
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: monitoring-pv1
+spec:
+  capacity:
+    storage: 20Gi
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Delete
+  nfs:
+    server: 192.168.3.28
+    path: /media/pi/ex-ssd/monitoring1
+
+---
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: monitoring-pv2
+spec:
+  capacity:
+    storage: 20Gi
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Delete
+  nfs:
+    server: 192.168.3.28
+    path: /media/pi/ex-ssd/monitoring2
+---
+
