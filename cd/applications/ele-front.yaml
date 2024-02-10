@@ -1,0 +1,25 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: ele-front
+  namespace: argocd
+  labels:
+    app: ele-front
+    environment: prod
+spec:
+  destination:
+    namespace: prod
+    server: https://kubernetes.default.svc
+  project: ele-prod
+  source:
+    kustomize:
+    path: services/ele-front/overlays/prod
+    repoURL: https://github.com/u-kai/k8s-in-home.git
+    targetRevision: main
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+      - ApplyOutOfSyncOnly=true
