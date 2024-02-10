@@ -2,6 +2,7 @@ apiVersion: triggers.tekton.dev/v1beta1
 kind: TriggerTemplate
 metadata:
   name: build-and-push-trigger-template
+  namespace: dev
 
 spec:
   params:
@@ -38,7 +39,7 @@ spec:
           - name: app-repo-name
             value: home-k8s-app
           - name: manifest-repo-name
-            value: cnkm
+            value: k8s-in-home
           - name: service-name
             value: $(tt.params.service-name)
           - name: git-user-name

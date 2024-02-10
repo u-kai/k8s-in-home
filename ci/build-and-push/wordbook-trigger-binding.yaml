@@ -2,6 +2,7 @@ apiVersion: triggers.tekton.dev/v1beta1
 kind: TriggerBinding
 metadata:
   name: wordbook-build-and-push-trigger-binding
+  namespace: dev
 spec:
   params:
     - name: github-app-subpath
