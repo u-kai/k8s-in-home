@@ -11,4 +11,6 @@ spec:
   storageClassName: tekton
   nfs:
     server: 192.168.3.28
-    path: /media/pi/ex-ssd
+    path:
+      /media/pi/ex-ssd/tekton
+      #path: /mnt/share/ex-ssd/tekton
