@@ -16,6 +16,6 @@ spec:
     - name: context
       value: ./home-k8s-app/frontend
     - name: docker-file
-      value: Dockerfile
+      value: /Dockerfile
     - name: cache-repo
       value: home-web-cache
