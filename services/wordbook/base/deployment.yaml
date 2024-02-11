@@ -123,15 +123,11 @@ metadata:
   name: wordbook-initdb-config
 data:
   initdb.sql: |
-    CREATE TABLE users (
-        user_id VARCHAR(255) PRIMARY KEY
-    );
     CREATE TABLE words (
         word_id VARCHAR(255) PRIMARY KEY,
         value VARCHAR(255) NOT NULL,
         meaning TEXT,
         pronunciation VARCHAR(255),
-        user_id VARCHAR(255) NOT NULL,
         created_at BIGINT NOT NULL,
         updated_at BIGINT NOT NULL,
         miss_count INT,
