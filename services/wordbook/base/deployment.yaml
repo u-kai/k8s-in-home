@@ -44,8 +44,6 @@ spec:
                 secretKeyRef:
                   name: wordbook-db-secret
                   key: password
-            - name: MYSQL_DATABASE
-              value: wordbook
 
 ---
 apiVersion: apps/v1
@@ -82,10 +80,43 @@ spec:
         - name: initdb-script
           configMap:
             name: wordbook-initdb-config
+            items:
+              - key: init.sql
+                path: init.sql
         - name: wordbook-db-pv
           persistentVolumeClaim:
             claimName: wordbook-pvc
-
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: wordbook-initdb-config
+data:
+  init.sql: |
+    CREATE DATABASE wordbook;
+    USE wordbook;
+    CREATE TABLE words (
+        word_id VARCHAR(255) PRIMARY KEY,
+        user_id VARCHAR(255) NOT NULL,
+        value VARCHAR(255) NOT NULL,
+        meaning TEXT,
+        pronunciation VARCHAR(255),
+        created_at BIGINT NOT NULL,
+        updated_at BIGINT NOT NULL,
+        miss_count INT,
+        remarks TEXT,
+        like_rates TEXT
+    );
+    CREATE TABLE sentences (
+        sentence_id INT AUTO_INCREMENT PRIMARY KEY,
+        word_id VARCHAR(255) NOT NULL,
+        value TEXT NOT NULL,
+        meaning TEXT,
+        pronunciation VARCHAR(255),
+        created_at BIGINT NOT NULL,
+        updated_at BIGINT NOT NULL,
+        FOREIGN KEY (word_id) REFERENCES words(word_id)
+    );
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
@@ -114,33 +145,3 @@ spec:
     - port: 3306
       targetPort: 3306
       protocol: TCP
-
----
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: wordbook-initdb-config
-data:
-  initdb.sql: |
-    CREATE TABLE words (
-        user_id VARCHAR(255) NOT NULL,
-        word_id VARCHAR(255) PRIMARY KEY,
-        value VARCHAR(255) NOT NULL,
-        meaning TEXT,
-        pronunciation VARCHAR(255),
-        created_at BIGINT NOT NULL,
-        updated_at BIGINT NOT NULL,
-        miss_count INT,
-        remarks TEXT,
-        like_rates TEXT,
-    );
-    CREATE TABLE sentences (
-        sentence_id INT AUTO_INCREMENT PRIMARY KEY,
-        word_id VARCHAR(255) NOT NULL,
-        value TEXT NOT NULL,
-        meaning TEXT,
-        pronunciation VARCHAR(255),
-        created_at BIGINT NOT NULL,
-        updated_at BIGINT NOT NULL,
-        FOREIGN KEY (word_id) REFERENCES words(word_id)
-    );
