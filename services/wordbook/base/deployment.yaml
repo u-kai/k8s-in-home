@@ -140,5 +140,7 @@ data:
         value TEXT NOT NULL,
         meaning TEXT,
         pronunciation VARCHAR(255),
+        created_at BIGINT NOT NULL,
+        updated_at BIGINT NOT NULL,
         FOREIGN KEY (word_id) REFERENCES words(word_id)
     );
