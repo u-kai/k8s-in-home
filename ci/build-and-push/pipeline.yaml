@@ -59,6 +59,7 @@ spec:
         - name: GIT_SCRIPT
           value: |
             git config --global --add safe.directory /workspace/source/$(params.manifest-repo-name)
+            git config --global pull.rebase false
             if [ -d $(params.manifest-repo-name) ]; then
               cd $(params.manifest-repo-name)
               git pull origin main
@@ -124,7 +125,7 @@ spec:
           value: |
             ls 
             cd ./$(params.manifest-repo-name)/services/$(params.service-name)/overlays/$(params.deploy-env)
-            kustomize edit set image __IMAGE_URL__@__IMAGE_DIGEST__=$(tasks.build-and-push.results.IMAGE_URL)@$(tasks.build-and-push.results.IMAGE_DIGEST)
+            kustomize edit set image ___IMAGE_URL___@___IMAGE_DIGEST___=$(tasks.build-and-push.results.IMAGE_URL)@$(tasks.build-and-push.results.IMAGE_DIGEST)
             kustomize build .
 
     - name: push-manifest
