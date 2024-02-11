@@ -15,6 +15,20 @@ spec:
 apiVersion: v1
 kind: PersistentVolume
 metadata:
+  name: wordbook-db-pv-test
+spec:
+  capacity:
+    storage: 1Gi
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Delete
+  storageClassName: wordbook-test
+  hostPath:
+    path: /media/pi/ex-ssd/wordbook-test
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
   name: wordbook-db-pv
 spec:
   capacity:
