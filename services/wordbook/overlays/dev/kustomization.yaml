@@ -1,12 +1,10 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 patchesStrategicMerge:
-  - deployment.yaml
+- deployment.yaml
 resources:
-  - ../../base
+- ../../base
 images:
-  - digest: sha256:e2782ee85d43fa5cc00517870007d9d1844d5532143506b0cf4e1053605f5111
-    name: ___IMAGE_URL___@___IMAGE_DIGEST___
-    newName: uk1012/wordbook:c9d4441a9ee1027f7407f6cfb317926dd852861a
-# -devをつけると、リソースに依存している他のリソースに認識されなくな流ので不採用
-#nameSuffix: -dev
+- digest: sha256:8fb7239ddf67494c386fe07ee1b5c674df1d67214d8f1fc1ec6f5f449564398c
+  name: ___IMAGE_URL___@___IMAGE_DIGEST___
+  newName: uk1012/wordbook:e71ff1d4bd78e3b61655901c1f8adf52d79af706
