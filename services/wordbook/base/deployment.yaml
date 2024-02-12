@@ -108,7 +108,7 @@ data:
         like_rates TEXT
     );
     CREATE TABLE sentences (
-        sentence_id INT AUTO_INCREMENT PRIMARY KEY,
+        sentence_id VARCHAR(255) PRIMARY KEY,
         word_id VARCHAR(255) NOT NULL,
         value TEXT NOT NULL,
         meaning TEXT,
