@@ -7,7 +7,7 @@ spec:
     storage: 1Gi
   accessModes:
     - ReadWriteOnce
-  persistentVolumeReclaimPolicy: Delete
+  persistentVolumeReclaimPolicy: Recycle
   storageClassName: wordbook-dev
   hostPath:
     path: /media/pi/ex-ssd/wordbook-dev
@@ -21,7 +21,7 @@ spec:
     storage: 1Gi
   accessModes:
     - ReadWriteOnce
-  persistentVolumeReclaimPolicy: Delete
+  persistentVolumeReclaimPolicy: Recycle
   storageClassName: wordbook-test
   hostPath:
     path: /media/pi/ex-ssd/wordbook-test
@@ -35,7 +35,7 @@ spec:
     storage: 20Gi
   accessModes:
     - ReadWriteOnce
-  persistentVolumeReclaimPolicy: Delete
+  persistentVolumeReclaimPolicy: Recycle
   storageClassName: wordbook
   hostPath:
     path: /media/pi/ex-ssd/wordbook

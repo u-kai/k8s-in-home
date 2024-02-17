@@ -31,16 +31,8 @@ spec:
         [[ -f $(workspaces.kubeconfig-dir.path)/kubeconfig ]] && \
         export KUBECONFIG=$(workspaces.kubeconfig-dir.path)/kubeconfig
 
-        echo "--- SHOW $(params.SERVICE_NAME) IMAGE_URL ---";
-        sed -ne "s;___IMAGE_URL___;$(params.IMAGE_URL);" \
-          -ne "s;___IMAGE_DIGEST___;$(params.IMAGE_DIGEST);p" \
-          ./services/$(params.SERVICE_NAME)/base/deployment.yaml;
-
         echo "--- DEPLOY $(params.SERVICE_NAME) APP ---";
-        kubectl delete -f ./services/$(params.SERVICE_NAME)/base/deployment.yaml;
-        sed -e "s;___IMAGE_URL___;$(params.IMAGE_URL);g" \
-          -e "s;___IMAGE_DIGEST___;$(params.IMAGE_DIGEST);g" \
-          ./services/$(params.SERVICE_NAME)/base/deployment.yaml | kubectl apply -f - ;
+        kubectl apply -k ./services/$(params.SERVICE_NAME)/overlays/dev
 
         echo "--- SHOW DEPLOYMENTS AND SERVECES ---";
         kubectl get deployment,service;
