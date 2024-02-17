@@ -10,7 +10,7 @@ spec:
     - matches:
         - path:
             type: PathPrefix
-            value: /translate
+            value: /
       backendRefs:
         - name: translate-service
           port: 80
