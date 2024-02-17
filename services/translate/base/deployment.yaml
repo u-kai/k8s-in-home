@@ -9,7 +9,8 @@ spec:
   selector:
     app: translate
   ports:
-    - port: 80
+    - name: http-translate
+      port: 80
       targetPort: 8080
       protocol: TCP
 
@@ -35,6 +36,7 @@ spec:
                 secretKeyRef:
                   name: openai-secret
                   key: api-key
+
             - name: FRONTEND_HOST
               value: "http://localhost:5173"
           image: ___IMAGE_URL___@___IMAGE_DIGEST___

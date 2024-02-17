@@ -10,14 +10,14 @@ spec:
     - matches:
         - path:
             type: PathPrefix
-            value: /
+            value: /wordbook
       backendRefs:
-        - name: translate-service
+        - name: wordbook-service
           port: 80
     - matches:
         - path:
             type: PathPrefix
-            value: /wordbook
+            value: /translate
       backendRefs:
-        - name: wordbook-service
+        - name: translate-service
           port: 80
