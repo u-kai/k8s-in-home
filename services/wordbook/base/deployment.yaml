@@ -9,7 +9,8 @@ spec:
   selector:
     app: wordbook
   ports:
-    - port: 80
+    - name: http-wordbook
+      port: 80
       targetPort: 8080
       protocol: TCP
 
@@ -33,6 +34,8 @@ spec:
           ports:
             - containerPort: 8080
           env:
+            - name: FRONTEND_HOST
+              value: "http://localhost:5173"
             - name: MYSQL_HOST
               value: wordbook-db-service
             - name: MYSQL_PORT
@@ -142,6 +145,7 @@ spec:
   selector:
     app: wordbook-db
   ports:
-    - port: 3306
+    - name: tcp-wordbook-db
+      port: 3306
       targetPort: 3306
       protocol: TCP

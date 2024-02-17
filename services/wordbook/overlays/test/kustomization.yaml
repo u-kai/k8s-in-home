@@ -5,9 +5,9 @@ patchesStrategicMerge:
 resources:
   - ../../base
 images:
-  - digest: sha256:e2782ee85d43fa5cc00517870007d9d1844d5532143506b0cf4e1053605f5111
+  - digest: sha256:057d3aa8640021331b37426de3ab05be6be51099a30155aafc7c0c1e62536438
     name: ___IMAGE_URL___@___IMAGE_DIGEST___
-    newName: uk1012/wordbook:c9d4441a9ee1027f7407f6cfb317926dd852861a
+    newName: uk1012/wordbook:ff9cf8df9dddfb89cced91baa6ca1b54a359f2a3
 # -devをつけると、リソースに依存している他のリソースに認識されなくな流ので不採用
 #nameSuffix: -dev
 namespace: test

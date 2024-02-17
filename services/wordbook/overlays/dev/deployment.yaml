@@ -4,6 +4,19 @@ metadata:
   name: wordbook-deployment
 spec:
   replicas: 1
+  selector:
+    matchLabels:
+      app: wordbook
+  template:
+    metadata:
+      labels:
+        app: wordbook
+    spec:
+      containers:
+        - name: wordbook
+          env:
+            - name: FRONTEND_HOST
+              value: "http://www.dev.kaiandkai.com"
 
 ---
 apiVersion: v1

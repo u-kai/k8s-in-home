@@ -1,3 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: wordbook-service
+  labels:
+    app: wordbook
+spec:
+  type: LoadBalancer
+  selector:
+    app: wordbook
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -26,6 +37,7 @@ spec:
   selector:
     app: wordbook-db
   ports:
-    - port: 3306
+    - name: tcp-wordbook-db
+      port: 3306
       targetPort: 3306
       protocol: TCP

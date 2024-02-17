@@ -145,7 +145,7 @@ spec:
           value: |
             cd $(params.manifest-repo-name)
             git config --global --add safe.directory /workspace/source/$(params.manifest-repo-name)
-            git pull --rebase origin main 
             git add .
             git commit -m "Update manifest to $(tasks.build-and-push.results.IMAGE_URL)@$(tasks.build-and-push.results.IMAGE_DIGEST)"
+            git pull --rebase origin main 
             git push origin HEAD:main
