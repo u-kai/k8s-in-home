@@ -4,4 +4,4 @@ metadata:
   name: ele-route
 spec:
   hostnames:
-    - dev.api.kaiandkai.com
+    - dev.kaiandkai.com
