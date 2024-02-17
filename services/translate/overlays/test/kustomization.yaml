@@ -5,6 +5,6 @@ patchesStrategicMerge:
 resources:
   - ../../base
 images:
-  - digest: sha256:e2782ee85d43fa5cc00517870007d9d1844d5532143506b0cf4e1053605f5111
+  - digest: sha256:0399f9a220204be4745d0627b8813fbb0b7fa8a4d59b7b10760670de8d76e609
     name: ___IMAGE_URL___@___IMAGE_DIGEST___
-    newName: uk1012/wordbook:c9d4441a9ee1027f7407f6cfb317926dd852861a
+    newName: uk1012/translate:03ce104b33748b7584983aafd3a8cff44f8e8e59
