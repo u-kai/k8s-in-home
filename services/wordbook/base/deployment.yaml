@@ -1,0 +1,147 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: wordbook-service
+  labels:
+    app: wordbook
+spec:
+  type: ClusterIP
+  selector:
+    app: wordbook
+  ports:
+    - port: 80
+      targetPort: 8080
+      protocol: TCP
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: wordbook-deployment
+spec:
+  selector:
+    matchLabels:
+      app: wordbook
+  template:
+    metadata:
+      labels:
+        app: wordbook
+    spec:
+      containers:
+        - name: wordbook
+          image: ___IMAGE_URL___@___IMAGE_DIGEST___
+          ports:
+            - containerPort: 8080
+          env:
+            - name: MYSQL_HOST
+              value: wordbook-db-service
+            - name: MYSQL_PORT
+              value: "3306"
+            - name: MYSQL_USER
+              value: root
+            - name: MYSQL_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: wordbook-db-secret
+                  key: password
+
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: wordbook-db
+spec:
+  serviceName: wordbook-db-service
+  selector:
+    matchLabels:
+      app: wordbook-db
+  template:
+    metadata:
+      labels:
+        app: wordbook-db
+    spec:
+      containers:
+        - name: mysql
+          image: mysql
+          env:
+            - name: MYSQL_ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: wordbook-db-secret
+                  key: password
+          ports:
+            - containerPort: 3306
+          volumeMounts:
+            - name: wordbook-db-pv
+              mountPath: /var/lib/mysql
+            - name: initdb-script
+              mountPath: /docker-entrypoint-initdb.d
+      volumes:
+        - name: initdb-script
+          configMap:
+            name: wordbook-initdb-config
+            items:
+              - key: init.sql
+                path: init.sql
+        - name: wordbook-db-pv
+          persistentVolumeClaim:
+            claimName: wordbook-pvc
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: wordbook-initdb-config
+data:
+  init.sql: |
+    CREATE DATABASE wordbook;
+    USE wordbook;
+    CREATE TABLE words (
+        word_id VARCHAR(255) PRIMARY KEY,
+        user_id VARCHAR(255) NOT NULL,
+        value VARCHAR(255) NOT NULL,
+        meaning TEXT,
+        pronunciation VARCHAR(255),
+        created_at BIGINT NOT NULL,
+        updated_at BIGINT NOT NULL,
+        miss_count INT,
+        remarks TEXT,
+        like_rates TEXT
+    );
+    CREATE TABLE sentences (
+        sentence_id VARCHAR(255) PRIMARY KEY,
+        word_id VARCHAR(255) NOT NULL,
+        value TEXT NOT NULL,
+        meaning TEXT,
+        pronunciation VARCHAR(255),
+        created_at BIGINT NOT NULL,
+        updated_at BIGINT NOT NULL,
+        FOREIGN KEY (word_id) REFERENCES words(word_id)
+    );
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: wordbook-pvc
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 20Gi
+  storageClassName: wordbook
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: wordbook-db-service
+  labels:
+    app: wordbook-db
+spec:
+  type: ClusterIP
+  selector:
+    app: wordbook-db
+  ports:
+    - port: 3306
+      targetPort: 3306
+      protocol: TCP

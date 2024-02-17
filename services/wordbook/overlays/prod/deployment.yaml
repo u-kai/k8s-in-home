@@ -1,0 +1,13 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: wordbook-deployment
+spec:
+  replicas: 3
+  template:
+    spec:
+      containers:
+        - name: wordbook
+          env:
+            - name: FRONTEND_HOST
+              value: https://www.kaiandkai.com

@@ -4,3 +4,20 @@ metadata:
   name: translate-deployment
 spec:
   replicas: 1
+  selector:
+    matchLabels:
+      app: translate
+  template:
+    metadata:
+      labels:
+        app: translate
+    spec:
+      containers:
+        - name: translate
+          env:
+            - name: OPENAI_API_KEY
+              secretKeyRef:
+                name: openai-secret
+                key: api-key
+            - name: FRONTEND_HOST
+              value: "http://dev.kaiandkai.com"

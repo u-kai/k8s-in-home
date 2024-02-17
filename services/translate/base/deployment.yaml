@@ -29,6 +29,13 @@ spec:
     spec:
       containers:
         - name: translate
+          env:
+            - name: OPENAI_API_KEY
+              secretKeyRef:
+                name: openai-secret
+                key: api-key
+            - name: FRONTEND_HOST
+              value: "http://localhost:5173"
           image: ___IMAGE_URL___@___IMAGE_DIGEST___
           ports:
             - containerPort: 8080

@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: wordbook-deployment
+spec:
+  replicas: 1
+
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: wordbook-pvc
+spec:
+  resources:
+    requests:
+      storage: 1Gi
+  storageClassName: wordbook-dev
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: wordbook-db-service
+spec:
+  selector:
+    app: wordbook-db
+  clusterIP: None
