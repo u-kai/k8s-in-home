@@ -4,7 +4,12 @@ metadata:
   name: ele-gateway
 spec:
   listeners:
-    - name: http
+    - name: frontend
+      hostname: "dev.www.kaiandkai.com"
+      port: 80
+      protocol: HTTP
+
+    - name: backend
       hostname: "dev.kaiandkai.com"
       port: 80
       protocol: HTTP

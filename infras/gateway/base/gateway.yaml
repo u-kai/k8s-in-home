@@ -5,7 +5,12 @@ metadata:
 spec:
   gatewayClassName: istio
   listeners:
-    - name: http
-      hostname: "*.kaiandkai.com"
-      port: 80
-      protocol: HTTP
+    - name: frontend
+      hostname: "www.kaiandkai.com"
+      port: 443
+      protocol: HTTPS
+
+    - name: backend
+      hostname: "api.kaiandkai.com"
+      port: 443
+      protocol: HTTPS

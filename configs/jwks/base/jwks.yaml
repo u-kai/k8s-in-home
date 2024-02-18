@@ -3,4 +3,4 @@ kind: ConfigMap
 metadata:
   name: jwks-url
 data:
-  url: https://cognito-idp.ap-northeast-1.amazonaws.com/ap-northeast-1_OlP3TVnbI/.well-known/jwks.json
+  url: "https://cognito-idp.ap-northeast-1.amazonaws.com/ap-northeast-1_OlP3TVnbI/.well-known/jwks.json"
