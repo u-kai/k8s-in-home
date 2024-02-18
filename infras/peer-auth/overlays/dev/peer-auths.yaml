@@ -2,3 +2,19 @@ apiVersion: security.istio.io/v1
 kind: RequestAuthentication
 metadata:
   name: jwt-request-auth
+
+---
+apiVersion: security.istio.io/v1
+kind: AuthorizationPolicy
+metadata:
+  name: jwt-auth-policy
+spec:
+  targetRef:
+    kind: Gateway
+    group: gateway.networking.k8s.io
+    name: ele-gateway
+  action: DENY
+  rules:
+    - from:
+        - source:
+            notRequestPrincipals: ["*"]

@@ -31,6 +31,13 @@ spec:
       containers:
         - name: translate
           env:
+            - name: JWT_AUTH_FLAG
+              value: "true"
+            - name: JWKS_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: jwks-url
+                  key: url
             - name: OPENAI_API_KEY
               valueFrom:
                 secretKeyRef:

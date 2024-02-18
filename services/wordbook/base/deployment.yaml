@@ -34,6 +34,13 @@ spec:
           ports:
             - containerPort: 8080
           env:
+            - name: JWT_AUTH_FLAG
+              value: "true"
+            - name: JWKS_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: jwks-url
+                  key: url
             - name: MYSQL_DATABASE
               value: wordbook
             - name: FRONTEND_HOST
