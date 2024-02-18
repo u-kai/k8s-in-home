@@ -31,6 +31,9 @@ spec:
         [[ -f $(workspaces.kubeconfig-dir.path)/kubeconfig ]] && \
         export KUBECONFIG=$(workspaces.kubeconfig-dir.path)/kubeconfig
 
+        echo "--- check kustomize ---";
+        cat ./services/$(params.SERVICE_NAME)/overlays/dev/kustomize.yaml
+
         echo "--- DEPLOY $(params.SERVICE_NAME) APP ---";
         kubectl apply -k ./services/$(params.SERVICE_NAME)/overlays/dev
 

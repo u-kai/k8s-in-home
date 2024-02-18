@@ -34,6 +34,8 @@ spec:
           ports:
             - containerPort: 8080
           env:
+            - name: MYSQL_DATABASE
+              value: wordbook
             - name: FRONTEND_HOST
               value: "http://localhost:5173"
             - name: MYSQL_HOST

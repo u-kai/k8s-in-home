@@ -17,7 +17,6 @@ spec:
     - name: context
     - name: docker-file
       default: Dockerfile
-    - name: cache-repo
 
   resourcetemplates:
     - apiVersion: tekton.dev/v1beta1
@@ -52,8 +51,6 @@ spec:
             value: $(tt.params.context)
           - name: docker-file
             value: $(tt.params.docker-file)
-          - name: cache-repo
-            value: $(tt.params.cache-repo)
         workspaces:
           - name: git-source-app
             persistentVolumeClaim:

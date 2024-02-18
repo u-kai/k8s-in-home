@@ -16,4 +16,4 @@ spec:
         - name: translate
           env:
             - name: FRONTEND_HOST
-              value: "http://dev.kaiandkai.com"
+              value: "http://www.dev.kaiandkai.com"

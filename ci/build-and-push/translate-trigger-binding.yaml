@@ -21,5 +21,3 @@ spec:
       value: ./home-k8s-app/backend
     - name: docker-file
       value: /translate/Dockerfile
-    - name: cache-repo
-      value: translate-cache

@@ -21,5 +21,3 @@ spec:
       value: ./home-k8s-app/backend
     - name: docker-file
       value: /wordbook/Dockerfile
-    - name: cache-repo
-      value: wordbook-cache

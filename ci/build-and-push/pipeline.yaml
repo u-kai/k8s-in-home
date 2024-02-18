@@ -22,7 +22,6 @@ spec:
     - name: manifest-repo-name
       description: Name of the GitHub repository to clone from
     - name: image-name
-    - name: cache-repo
     - name: context
     - name: docker-file
 
@@ -83,15 +82,27 @@ spec:
           value: $(params.context)
         - name: DOCKERFILE
           value: $(params.docker-file)
-        - name: EXTRA_ARGS
-          value:
-            - "--cache=true"
-            - --cache-repo=$(params.cache-repo)
       workspaces:
         - name: source
           workspace: git-source-app
         - name: dockerconfig
           workspace: docker-credentials
+
+    - name: update-manifest
+      taskRef:
+        name: kustomize
+      runAfter:
+        - deploy-container
+      workspaces:
+        - name: manifest-dir
+          workspace: git-source-manifest
+      params:
+        - name: KUSTOMIZE_SCRIPT
+          value: |
+            ls 
+            cd ./$(params.manifest-repo-name)/services/$(params.service-name)/overlays/$(params.deploy-env)
+            kustomize edit set image ___IMAGE_URL___@___IMAGE_DIGEST___=$(tasks.build-and-push.results.IMAGE_URL)@$(tasks.build-and-push.results.IMAGE_DIGEST)
+            kustomize build .
 
     - name: deploy-container
       runAfter:
@@ -111,22 +122,6 @@ spec:
       workspaces:
         - name: manifest-dir
           workspace: git-source-manifest
-
-    - name: update-manifest
-      taskRef:
-        name: kustomize
-      runAfter:
-        - deploy-container
-      workspaces:
-        - name: manifest-dir
-          workspace: git-source-manifest
-      params:
-        - name: KUSTOMIZE_SCRIPT
-          value: |
-            ls 
-            cd ./$(params.manifest-repo-name)/services/$(params.service-name)/overlays/$(params.deploy-env)
-            kustomize edit set image ___IMAGE_URL___@___IMAGE_DIGEST___=$(tasks.build-and-push.results.IMAGE_URL)@$(tasks.build-and-push.results.IMAGE_DIGEST)
-            kustomize build .
 
     - name: push-manifest
       taskRef:
