@@ -1,7 +1,4 @@
-apiVersion: gateway.networking.k8s.io/v1beta1
-kind: HTTPRoute
+apiVersion: security.istio.io/v1
+kind: RequestAuthentication
 metadata:
-  name: ele-route
-spec:
-  hostnames:
-    - dev.kaiandkai.com
+  name: jwt-request-auth

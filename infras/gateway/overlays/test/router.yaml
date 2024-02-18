@@ -3,8 +3,5 @@ kind: HTTPRoute
 metadata:
   name: ele-route
 spec:
-  parentRefs:
-    - name: ele-gateway
-      namespace: dev
   hostnames:
-    - dev.kaiandkai.com
+    - test.kaiandkai.com
