@@ -92,7 +92,8 @@ spec:
       taskRef:
         name: kustomize
       runAfter:
-        - deploy-container
+        - build-and-push
+        - git-clone-manifest
       workspaces:
         - name: manifest-dir
           workspace: git-source-manifest
@@ -106,8 +107,7 @@ spec:
 
     - name: deploy-container
       runAfter:
-        - build-and-push
-        - git-clone-manifest
+        - update-manifest
       taskRef:
         name: deploy-task
       params:

@@ -38,7 +38,7 @@ spec:
                   key: api-key
 
             - name: FRONTEND_HOST
-              value: "http://localhost:5173"
+              value: "*"
           image: ___IMAGE_URL___@___IMAGE_DIGEST___
           ports:
             - containerPort: 8080
