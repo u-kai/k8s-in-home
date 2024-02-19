@@ -1,13 +1,9 @@
 apiVersion: gateway.networking.k8s.io/v1beta1
 kind: Gateway
 metadata:
-  name: ele-gateway
-spec:
-  listeners:
-    - name: http
-      hostname: "api.kaiandkai.com"
-      port: 443
-      protocol: HTTPS
-      allowedRoutes:
-        namespaces:
-          from: All
+  name: ele-backend-gateway
+---
+apiVersion: gateway.networking.k8s.io/v1beta1
+kind: Gateway
+metadata:
+  name: ele-frontend-gateway

@@ -6,7 +6,7 @@ spec:
   hostnames:
     - "api.kaiandkai.com"
   parentRefs:
-    - name: ele-gateway
+    - name: ele-backend-gateway
   rules:
     - matches:
         - path:
@@ -31,7 +31,7 @@ spec:
   hostnames:
     - "www.kaiandkai.com"
   parentRefs:
-    - name: ele-gateway
+    - name: ele-frontend-gateway
   rules:
     - matches:
         - path:

@@ -6,23 +6,39 @@ spec:
   targetRef:
     kind: Gateway
     group: gateway.networking.k8s.io
-    name: ele-gateway
+    name: ele-backend-gateway
   jwtRules:
     - issuer: "https://cognito-idp.ap-northeast-1.amazonaws.com/ap-northeast-1_OlP3TVnbI"
       jwksUri: "https://cognito-idp.ap-northeast-1.amazonaws.com/ap-northeast-1_OlP3TVnbI/.well-known/jwks.json"
+      forwardOriginalToken: true
 
 ---
 apiVersion: security.istio.io/v1
 kind: AuthorizationPolicy
 metadata:
-  name: jwt-auth-policy
+  name: jwt-auth-policy-allow-options
 spec:
   targetRef:
     kind: Gateway
     group: gateway.networking.k8s.io
-    name: ele-gateway
+    name: ele-backend-gateway
+  action: ALLOW
+  rules:
+    - to:
+        - operation:
+            methods: ["OPTIONS"]
+---
+apiVersion: security.istio.io/v1
+kind: AuthorizationPolicy
+metadata:
+  name: jwt-auth-policy-allow-requests
+spec:
+  targetRef:
+    kind: Gateway
+    group: gateway.networking.k8s.io
+    name: ele-backend-gateway
   action: ALLOW
   rules:
     - from:
         - source:
-            notRequestPrincipals: ["*"]
+            requestPrincipals: ["*"]

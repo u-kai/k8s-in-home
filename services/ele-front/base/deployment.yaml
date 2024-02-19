@@ -5,7 +5,7 @@ metadata:
   labels:
     app: ele-front
 spec:
-  type: LoadBalancer
+  type: ClusterIP
   selector:
     app: ele-front
   ports:
