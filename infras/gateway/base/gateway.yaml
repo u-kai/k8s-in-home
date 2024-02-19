@@ -7,11 +7,8 @@ spec:
   listeners:
     - name: backend
       hostname: "api.kaiandkai.com"
-      port: 443
-      protocol: HTTPS
-    - name: backend-tcp
-      port: 443
-      protocol: TCP
+      port: 80
+      protocol: HTTP
 ---
 apiVersion: gateway.networking.k8s.io/v1beta1
 kind: Gateway
@@ -22,5 +19,5 @@ spec:
   listeners:
     - name: frontend
       hostname: "www.kaiandkai.com"
-      port: 443
-      protocol: HTTPS
+      port: 80
+      protocol: HTTP
