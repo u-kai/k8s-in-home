@@ -5,6 +5,6 @@ patchesStrategicMerge:
 resources:
 - ../../base
 images:
-- digest: sha256:34e76d8635da98ddfe219eb0872b2b50aea33d635d00327d2d2d281d3f12a480
+- digest: sha256:3c613767f69c035360920cb00e3af31f1c87ae7c9d22dfc8da6e4ab9cb95a98e
   name: ___IMAGE_URL___@___IMAGE_DIGEST___
-  newName: uk1012/ele-front:6cf0d0f92318abfeca8d0d2cefbfc10307018286
+  newName: uk1012/ele-front:faef461eadb9705c83efef4a2bd0422ee4e0e20b
