@@ -1,2 +1,2 @@
 # k8s-in-home
-This my hobby
+This is my hobby
