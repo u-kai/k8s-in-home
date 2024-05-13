@@ -37,12 +37,8 @@ spec:
         - name: GIT_SCRIPT
           value: |
             git config --global --add safe.directory /workspace/source/$(params.app-repo-name)
-            if [ -d $(params.app-repo-name) ]; then
-              cd $(params.app-repo-name)
-              git pull origin main
-            else
-              git clone https://github.com/$(params.git-user-name)/$(params.app-repo-name)
-            fi
+            rm -rf $(params.app-repo-name)
+            git clone https://github.com/$(params.git-user-name)/$(params.app-repo-name)
       workspaces:
         - name: source
           workspace: git-source-app
