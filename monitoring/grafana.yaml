@@ -23,7 +23,7 @@ spec:
     - ReadWriteOnce
   resources:
     requests:
-      storage: 2Gi
+      storage: 20Gi
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -42,13 +42,36 @@ spec:
         app: grafana
     spec:
       securityContext:
+        runAsUser: 472
         fsGroup: 472
         supplementalGroups:
           - 0
+      initContainers:
+        - name: setup-config
+          image: busybox
+          command:
+            - sh
+            - -c
+            - |
+              echo -e "[security]\nadmin_user = admin\nadmin_password = ${ADMIN_PASSWORD}\n" > /etc/custom.ini
+          volumeMounts:
+            - mountPath: /etc
+              name: grafana-pv
+
+          env:
+            - name: ADMIN_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: grafana-secret
+                  key: admin-password
+
       containers:
         - name: grafana
           image: grafana/grafana:latest
           imagePullPolicy: IfNotPresent
+          env:
+            - name: GF_PATHS_CONFIG
+              value: /var/lib/grafana/custom.ini
           ports:
             - containerPort: 3000
               name: http-grafana
@@ -89,11 +112,11 @@ metadata:
   name: grafana
   namespace: monitoring
 spec:
-  user:
   ports:
-    - port: 3000
+    - name: http-grafana
+      port: 3000
       protocol: TCP
-      targetPort: http-grafana
+      targetPort: 3000
   selector:
     app: grafana
   sessionAffinity: None
