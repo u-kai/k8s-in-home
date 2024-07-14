@@ -5,7 +5,7 @@ patchesStrategicMerge:
 resources:
 - ../../base
 images:
-- digest: sha256:7925893b516044d5f40a0fc0e9aefb5db073f64ba0f0376915d92b162ff54ed9
+- digest: sha256:2cbb4b21be41afdd1440af15133f9a270406a8f0c762805f9a15cc7f18c532cf
   name: ___IMAGE_URL___@___IMAGE_DIGEST___
   newName: uk1012/translate
-  newTag: d18ac64d920ba4cb6bc29ca993801879afdfc14a
+  newTag: 24c75c2930e529c5fcbb8aab9a67238a7ce05eca
