@@ -27,4 +27,102 @@ spec:
     server: 192.168.3.28
     path: /media/pi/ex-ssd/monitoring2
 ---
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: for-loki1
+spec:
+  capacity:
+    storage: 20Gi
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Delete
+  nfs:
+    server: 192.168.3.28
+    path: /media/pi/ex-ssd/loki1
+---
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: for-loki2
+spec:
+  capacity:
+    storage: 20Gi
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Delete
+  nfs:
+    server: 192.168.3.28
+    path: /media/pi/ex-ssd/loki2
+---
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: for-loki3
+spec:
+  capacity:
+    storage: 20Gi
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Delete
+  nfs:
+    server: 192.168.3.28
+    path: /media/pi/ex-ssd/loki3
+---
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: for-loki4
+spec:
+  capacity:
+    storage: 20Gi
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Delete
+  nfs:
+    server: 192.168.3.28
+    path: /media/pi/ex-ssd/loki4
+---
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: for-loki5
+spec:
+  capacity:
+    storage: 20Gi
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Delete
+  nfs:
+    server: 192.168.3.28
+    path: /media/pi/ex-ssd/loki5
+---
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: for-loki6
+spec:
+  capacity:
+    storage: 20Gi
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Delete
+  nfs:
+    server: 192.168.3.28
+    path: /media/pi/ex-ssd/loki6
+---
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: for-loki7
+spec:
+  capacity:
+    storage: 20Gi
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Delete
+  nfs:
+    server: 192.168.3.28
+    path: /media/pi/ex-ssd/loki7
+---
 

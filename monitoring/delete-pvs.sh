@@ -1,4 +1,3 @@
-kubectl patch pv monitoring1 -p '{"metadata":{"finalizers":null}}'
-kubectl patch pv monitoring2 -p '{"metadata":{"finalizers":null}}'
+kubectl patch pv for-loki5 -p '{"metadata":{"finalizers":null}}'
 
-kubectl delete -f monitoring
+kubectl delete pv for-loki5
