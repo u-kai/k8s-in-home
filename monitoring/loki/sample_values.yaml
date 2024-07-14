@@ -1,0 +1,31 @@
+loki:
+  auth_enabled: false
+  containerSecurityContext:
+    readOnlyRootFilesystem: false
+  podSecurityContext:
+    fsGroup: 0
+    runAsNonRoot: false
+    runAsUser: 0
+  commonConfig:
+    replication_factor: 1
+  storage:
+    type: filesystem
+  commonStorageConfig:
+    type: filesystem
+  persistence:
+    enabled: true
+  rulerConfig:
+    storage:
+      type: local
+singleBinary:
+  replicas: 1
+  persistence:
+    enabled: true
+    size: 10Gi
+gateway:
+  service:
+    nodePort: 31001
+    type: NodePort
+table_manager:
+  retention_deletes_enabled: true
+  retention_period: 24h
