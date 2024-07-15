@@ -87,6 +87,7 @@ configmapReload:
     ##
     extraConfigmapMounts:
       []
+
       # - name: prometheus-alerts
       #   mountPath: /etc/alerts.d
       #   subPath: ""
@@ -777,18 +778,43 @@ scrapeConfigFiles: []
 serverFiles:
   ## Alerts configuration
   ## Ref: https://prometheus.io/docs/prometheus/latest/configuration/alerting_rules/
-  alerting_rules.yml: {}
-  # groups:
-  #   - name: Instances
-  #     rules:
-  #       - alert: InstanceDown
-  #         expr: up == 0
-  #         for: 5m
-  #         labels:
-  #           severity: page
-  #         annotations:
-  #           description: '{{ $labels.instance }} of job {{ $labels.job }} has been down for more than 5 minutes.'
-  #           summary: 'Instance {{ $labels.instance }} down'
+  alerting_rules.yml:
+    groups:
+      - name: CPU Usage
+        rules:
+          - alert: HighCPUUsage
+            expr: 100 * (1- avg by (instance,node) (rate(node_cpu_seconds_total{mode="idle"}[10m]))) > 85
+            for: 1m
+            labels:
+              severity: page
+            annotations:
+              identifier: "{{ $labels.node }}"
+              description:
+                "{{ $labels.instance }} has a high CPU usage."
+                # TODO: refactoring
+              grafana_dashboard: "http://192.168.3.63:3000/d/k8s_views_pods/kubernetes-views-pods?orgId=1&refresh=30s"
+      - name: Memory Usages
+        rules:
+          - alert: HighMemoryUsages
+            expr: (node_memory_MemTotal_bytes - node_memory_MemFree_bytes - node_memory_Buffers_bytes - node_memory_Cached_bytes) / node_memory_MemTotal_bytes * 100 > 80
+            for: 5m
+            labels:
+              severity: page
+            annotations:
+              identifier: "{{ $labels.node }}"
+              description: "{{ $labels.instance }} has a high memory usage."
+              grafana_dashboard: "http://192.168.3.63:3000/d/k8s_views_pods/kubernetes-views-pods?orgId=1&refresh=30s"
+
+      - name: Node Down
+        rules:
+          - alert: InstanceDown
+            expr: up == 0
+            for: 5m
+            annotations:
+              identifier: "{{ $labels.instance }}"
+              description: "{{ $labels.job }} exporter job has been down for more than 5 minutes."
+              grafana_dashboard: "http://192.168.3.63:3000/d/rYdddlPWk/node-exporter-full?orgId=1&refresh=1m"
+
   ## DEPRECATED DEFAULT VALUE, unless explicitly naming your files, please use alerting_rules.yml
   alerts: {}
 
@@ -1327,6 +1353,36 @@ alertmanager:
     runAsNonRoot: true
     runAsGroup: 65534
     fsGroup: 65534
+  extraSecretMounts:
+    - name: secret-file
+      mountPath: /etc/secret
+      secretName: alertmanager-secrets
+      readOnly: true
+    - name: notifications-tmpl
+      mountPath: /alertmanager
+      secretName: alertmanager-templates
+      readOnly: true
+
+  config:
+    enabled: true
+    templates:
+      - /alertmanager/notifications.tmpl
+    receivers:
+      - name: page
+        slack_configs:
+          - channel: "#page"
+            send_resolved: true
+            api_url_file: /etc/secret/slack-api-url
+            title: '{{ template "custom_title" . }}'
+            text: '{{ template "custom_slack_message" . }}'
+            actions:
+              - type: button
+                text: "GrafanaDashboard"
+                url: "{{ .CommonAnnotations.grafana_dashboard }}"
+
+    route:
+      #repeat_interval: 12h
+      receiver: page
 
 ## kube-state-metrics sub-chart configurable values
 ## Please see https://github.com/prometheus-community/helm-charts/tree/main/charts/kube-state-metrics

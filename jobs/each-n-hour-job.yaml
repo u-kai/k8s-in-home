@@ -1,0 +1,39 @@
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  name: hour.cron.job.ukcr
+spec:
+  group: cron.job.ukcr
+  names:
+    kind: PerNHourCronJob
+    plural: hour
+    singular: hour
+    shortNames:
+      - hcj
+  versions:
+    - name: v1alpha1
+      served: true
+      storage: true
+      schema:
+        openAPIV3Schema:
+          type: object
+          properties:
+            spec:
+              type: object
+              properties:
+                image:
+                  type: string
+                per:
+                  type: integer
+
+  scope: Namespaced
+
+---
+apiVersion: cron.job.ukcr/v1alpha1
+kind: PerNHourCronJob
+metadata:
+  name: sample
+  namespace: jobs
+spec:
+  image: busybox
+  per: 1

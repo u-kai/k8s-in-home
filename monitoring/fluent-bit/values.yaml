@@ -409,6 +409,7 @@ config:
         Match kube.*
         Host loki-gateway
         Port 80
+        auto_kubernetes_labels on
 
     [OUTPUT]
         Name loki
