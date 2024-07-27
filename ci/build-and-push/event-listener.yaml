@@ -28,7 +28,8 @@ spec:
             name: cel
           params:
             - name: filter
-              value: extensions.changed_files.matches('backend/translate')
+              value: extensions.changed_files.matches('backend/translate') || extensions.changed_files.matches('backend/common')
+
       template:
         ref: build-and-push-trigger-template
       bindings:
@@ -55,7 +56,7 @@ spec:
             name: cel
           params:
             - name: filter
-              value: extensions.changed_files.matches('backend/wordbook')
+              value: extensions.changed_files.matches('backend/wordbook') || extensions.changed_files.matches('backend/common')
       template:
         ref: build-and-push-trigger-template
       bindings:
