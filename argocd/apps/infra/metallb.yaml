@@ -12,6 +12,15 @@ spec:
     repoURL: https://metallb.github.io/metallb
     targetRevision: 0.14.8
     chart: metallb
+    helm:
+      values: |
+        prometheus:
+          # default is 7472
+          metricsPort: 7473
+        speaker:
+          memberlist:
+            # default is 7946
+            mlBindingPort: 7947
   destination:
     server: https://kubernetes.default.svc
     namespace: metallb-system
