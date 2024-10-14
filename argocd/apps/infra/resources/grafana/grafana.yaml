@@ -12,18 +12,6 @@ spec:
     server: 192.168.3.28
     path: /media/pi/ex-ssd/grafana
 ---
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: grafana-pvc
-  namespace: monitoring
-spec:
-  accessModes:
-    - ReadWriteOnce
-  resources:
-    requests:
-      storage: 20Gi
----
 apiVersion: external-secrets.io/v1beta1
 kind: ExternalSecret
 metadata:
