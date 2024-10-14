@@ -1,45 +1,42 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: prometheus
+  name: metallb
   namespace: argocd
   labels:
-    app: prometheus
+    app: metallb
     environment: all
 spec:
   project: default
   source:
-    repoURL: https://prometheus-community.github.io/helm-charts
-    targetRevision: 25.24.0
-    chart: prometheus
+    repoURL: https://metallb.github.io/metallb
+    targetRevision: 0.14.8
+    chart: metallb
   destination:
     server: https://kubernetes.default.svc
-    namespace: monitoring
+    namespace: metallb-system
   syncPolicy:
     automated:
       prune: true
       selfHeal: true
-  helm:
-    valueFiles:
-      - values/prometheus.yaml
 ---
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: prometheus-resources
+  name: metallb-resources
   namespace: argocd
   labels:
-    app: prometheus
+    app: metallb
     environment: all
 spec:
   project: default
   source:
-    path: argocd/apps/infra/resources/prometheus.yaml
+    path: argocd/apps/infra/resources/metallb.yaml
     repoURL: https://github.com/u-kai/k8s-in-home.git
     targetRevision: main
   destination:
     server: https://kubernetes.default.svc
-    namespace: monitoring
+    namespace: metallb-system
   syncPolicy:
     automated:
       prune: true
