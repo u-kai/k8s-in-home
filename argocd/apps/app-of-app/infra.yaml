@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: kube-system
+  name: infra-app-of-app
   namespace: argocd
   labels:
     app: infra
