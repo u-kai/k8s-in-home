@@ -39,11 +39,11 @@ spec:
             apiVersion: 1
             providers:
               - name: dashboards
-                  type: file
-                  updateIntervalSeconds: 30
-                  options:
-                    path: /var/lib/grafana/dashboards
-                    foldersFromFilesStructure: true
+                type: file
+                updateIntervalSeconds: 30
+                options:
+                  path: /var/lib/grafana/dashboards
+                  foldersFromFilesStructure: true
         dashboards:
           default:
             prometheus-stats:
