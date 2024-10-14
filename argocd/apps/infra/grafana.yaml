@@ -31,14 +31,14 @@ spec:
           existingSecret: "grafana-admin-password"
           userKey: user
           passwordKey: password
-          #datasources:
-          #  - name: Prometheus
-          #    type: prometheus
-          #    url: http://prometheus-server
-          #    isDefault: true
-          #  - name: Loki
-          #    type: loki
-          #    url: http://loki.logging.svc.cluster.local:3100
+        datasources:
+          - name: Prometheus
+            type: prometheus
+            url: http://prometheus-server
+            isDefault: true
+            #- name: Loki
+            #  type: loki
+            #  url: http://loki.logging.svc.cluster.local:3100
 ---
 apiVersion: argoproj.io/v1alpha1
 kind: Application
