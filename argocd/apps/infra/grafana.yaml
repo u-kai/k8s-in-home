@@ -31,10 +31,9 @@ spec:
           existingSecret: "grafana-admin-password"
           userKey: user
           passwordKey: password
-
         dashboards:
           default:
-            prometheus-stats:
+            node-exporter-full:
               gnetId: 1860
               revision: 37 
               datasource: Prometheus
