@@ -12,10 +12,10 @@ metadata:
 spec:
   ingressClassName: nginx
   rules:
-    - host: example.com
+    - host: grafana.example.com
       http:
         paths:
-          - path: /grafana
+          - path: /
             pathType: Prefix
             backend:
               service:
