@@ -81,3 +81,10 @@ metadata:
   name: tekton-dashboard
   labels:
     name: tekton-dashboard
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: ingress-nginx
+  labels:
+    name: ingress-nginx
