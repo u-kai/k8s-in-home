@@ -33,6 +33,10 @@ spec:
           passwordKey: password
         dashboards:
           default:
+            prometheus-stats:
+              gnetId: 2
+              revision: 2
+              datasource: Prometheus
             node-exporter-full:
               gnetId: 1860
               revision: 37 
