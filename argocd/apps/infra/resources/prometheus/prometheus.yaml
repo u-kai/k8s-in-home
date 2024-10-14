@@ -12,7 +12,7 @@ spec:
     name: alertmanager-slack-url
     creationPolicy: Owner
   data: # 取得する秘匿情報を指定する
-    - secretKey: skack-api-url
+    - secretKey: slack-api-url
       remoteRef:
         key: alertmanager-slack-url
         property: slackUrl

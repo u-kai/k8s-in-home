@@ -45,7 +45,7 @@ spec:
               readOnly: true
             - name: notifications-tmpl
               mountPath: /alertmanager
-              secretName: alertmanager-templates
+              secretName: alertmanager-slack-templates
               readOnly: true
 
           config:
