@@ -1,0 +1,21 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: kube-system
+  namespace: argocd
+  labels:
+    app: infra
+    environment: all
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/u-kai/k8s-in-home.git
+    path: argocd/apps/infra
+    targetRevision: main
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: argocd
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
