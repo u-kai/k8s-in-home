@@ -1,0 +1,82 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: prometheus
+  namespace: argocd
+  labels:
+    app: prometheus
+    environment: all
+spec:
+  project: default
+  source:
+    repoURL: https://prometheus-community.github.io/helm-charts
+    targetRevision: 25.24.0
+    chart: prometheus
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: monitoring
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+  helm:
+    valueFiles:
+      - values/prometheus.yaml
+---
+apiVersion: external-secrets.io/v1beta1
+kind: ExternalSecret
+metadata:
+  name: alertmanager-slack-url-es
+  namespace: monitoring
+spec:
+  refreshInterval: 24h # SecretStoreプロバイダーから再度値を読み込む時間を指定
+  secretStoreRef:
+    name: secret-store
+    kind: SecretStore
+  target:
+    name: alertmanager-slack-url
+    creationPolicy: Owner
+  data: # 取得する秘匿情報を指定する
+    - secretKey: skack-api-url
+      remoteRef:
+        key: alertmanager-slack-url
+        property: slackUrl
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: alertmanager-slack-templates
+  namespace: monitoring
+stringData:
+  notifications.tmpl: |-
+    {{ define "__single_message_title" }}{{ range .Alerts.Firing }}{{ .Labels.alertname }} @ {{ .Annotations.identifier }}{{ end }}{{ range .Alerts.Resolved }}{{ .Labels.alertname }} @ {{ .Annotations.identifier }}{{ end }}{{ end }}
+    {{ define "custom_title" }}[{{ .Status | toUpper }}{{ if eq .Status "firing" }}:{{ .Alerts.Firing | len }}{{ end }}] {{ if or (and (eq (len .Alerts.Firing) 1) (eq (len .Alerts.Resolved) 0)) (and (eq (len .Alerts.Firing) 0) (eq (len .Alerts.Resolved) 1)) }}{{ template "__single_message_title" . }}{{ end }}{{ end }}
+    {{ define "custom_slack_message" }}
+    {{ if or (and (eq (len .Alerts.Firing) 1) (eq (len .Alerts.Resolved) 0)) (and (eq (len .Alerts.Firing) 0) (eq (len .Alerts.Resolved) 1)) }}
+    {{ range .Alerts.Firing }}{{ .Annotations.description }}{{ end }}{{ range .Alerts.Resolved }}{{ .Annotations.description }}{{ end }}
+    {{ else }}
+    {{ if gt (len .Alerts.Firing) 0 }}
+    *Alerts Firing:*
+    {{ range .Alerts.Firing }}- {{ .Annotations.identifier }}: {{ .Annotations.description }}
+    {{ end }}{{ end }}
+    {{ if gt (len .Alerts.Resolved) 0 }}
+    *Alerts Resolved:*
+    {{ range .Alerts.Resolved }}- {{ .Annotations.identifier }}: {{ .Annotations.description }} 
+    {{ end }}{{ end }}
+    {{ end }}
+    {{ end }}
+
+---
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: prometheus-pv
+spec:
+  capacity:
+    storage: 15Gi
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Delete
+  nfs:
+    server: 192.168.3.28
+    path: /media/pi/ex-ssd/prometheus
