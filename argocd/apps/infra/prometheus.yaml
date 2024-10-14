@@ -25,11 +25,12 @@ spec:
           persistentVolume:
             volumeName: "prometheus-pv"
 
+
+
         alertmanager:
           ## If false, alertmanager will not be installed
           ##
           enabled: true
-
           persistence:
             size: 2Gi
 
