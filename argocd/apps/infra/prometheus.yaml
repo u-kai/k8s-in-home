@@ -41,7 +41,7 @@ spec:
           extraSecretMounts:
             - name: secret-file
               mountPath: /etc/secret
-              secretName: alertmanager-secrets
+              secretName: alertmanager-slack-url
               readOnly: true
             - name: notifications-tmpl
               mountPath: /alertmanager
