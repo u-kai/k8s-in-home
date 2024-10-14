@@ -10,7 +10,7 @@ spec:
   project: default
   source:
     repoURL: https://istio-release.storage.googleapis.com/charts
-    targetRevision: default
+    targetRevision: 1.20.3
     chart: base
   destination:
     server: https://kubernetes.default.svc
@@ -32,7 +32,7 @@ spec:
   project: default
   source:
     repoURL: https://istio-release.storage.googleapis.com/charts
-    targetRevision: default
+    targetRevision: 1.20.3
     chart: istiod
   destination:
     server: https://kubernetes.default.svc
