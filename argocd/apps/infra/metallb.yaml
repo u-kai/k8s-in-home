@@ -16,11 +16,11 @@ spec:
       values: |
         prometheus:
           # default is 7472
-          metricsPort: 7473
+          metricsPort: 7471
         speaker:
           memberlist:
             # default is 7946
-            mlBindingPort: 7947
+            mlBindPort: 7947
   destination:
     server: https://kubernetes.default.svc
     namespace: metallb-system
