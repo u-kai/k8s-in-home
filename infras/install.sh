@@ -6,3 +6,8 @@ kubectl apply -f https://raw.githubusercontent.com/istio/istio/release-1.20/samp
 kubectl apply -f https://raw.githubusercontent.com/istio/istio/release-1.20/samples/addons/kiali.yaml -n istio-system
 kubectl apply -f https://raw.githubusercontent.com/istio/istio/release-1.20/samples/addons/prometheus.yaml -n istio-system
 kubectl apply -f https://raw.githubusercontent.com/istio/istio/release-1.20/samples/addons/loki.yaml -n istio-system
+
+kubectl delete -f https://raw.githubusercontent.com/istio/istio/release-1.20/samples/addons/jaeger.yaml -n istio-system
+kubectl delete -f https://raw.githubusercontent.com/istio/istio/release-1.20/samples/addons/kiali.yaml -n istio-system
+kubectl delete -f https://raw.githubusercontent.com/istio/istio/release-1.20/samples/addons/prometheus.yaml -n istio-system
+kubectl delete -f https://raw.githubusercontent.com/istio/istio/release-1.20/samples/addons/loki.yaml -n istio-system
