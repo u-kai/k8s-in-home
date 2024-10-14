@@ -1,0 +1,24 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: fluent-bit
+  namespace: argocd
+  labels:
+    app: fluent-bit
+    environment: all
+spec:
+  project: default
+  source:
+    repoURL: https://fluent.github.io/hem-charts
+    targetRevision: 0.47.2
+    chart: fluent-bit
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: logging
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+  helm:
+    valueFiles:
+      - values/fluent-bin.yaml
