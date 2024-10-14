@@ -31,7 +31,7 @@ metadata:
 spec:
   project: default
   source:
-    path: argocd/apps/infra/resources/metallb.yaml
+    path: argocd/apps/infra/resources/metallb
     repoURL: https://github.com/u-kai/k8s-in-home.git
     targetRevision: main
   destination:

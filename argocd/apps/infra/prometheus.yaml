@@ -22,6 +22,7 @@ spec:
   helm:
     valueFiles:
       - values/prometheus.yaml
+
 ---
 apiVersion: argoproj.io/v1alpha1
 kind: Application
@@ -34,7 +35,7 @@ metadata:
 spec:
   project: default
   source:
-    path: argocd/apps/infra/resources/prometheus.yaml
+    path: argocd/apps/infra/resources/prometheus
     repoURL: https://github.com/u-kai/k8s-in-home.git
     targetRevision: main
   destination:
