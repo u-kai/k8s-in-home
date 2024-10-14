@@ -12,18 +12,13 @@ metadata:
 spec:
   ingressClassName: nginx
   rules:
-    - host: garfana.example.com
+    - host: example.com
       http:
         paths:
-          - path: /
+          - path: /grafana
             pathType: Prefix
             backend:
               service:
                 name: grafana
                 port:
                   number: 80
-
-status:
-  loadBalancer:
-    ingress:
-      - ip: 192.168.3.62
