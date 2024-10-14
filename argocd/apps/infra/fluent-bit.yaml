@@ -9,7 +9,7 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://fluent.github.io/hem-charts
+    repoURL: https://fluentbit.github.io/hem-charts
     targetRevision: 0.47.2
     chart: fluent-bit
   destination:
