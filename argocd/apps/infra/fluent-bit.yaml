@@ -9,9 +9,9 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://fluentbit.github.io/hem-charts
+    repoURL: https://fluent.github.io/helm-charts
     targetRevision: 0.47.2
-    chart: fluent-bit
+    chart: fluent/fluent-bit
   destination:
     server: https://kubernetes.default.svc
     namespace: logging
