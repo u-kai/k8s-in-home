@@ -8,6 +8,13 @@ metadata:
     environment: all
 spec:
   project: default
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: monitoring
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
   source:
     repoURL: https://prometheus-community.github.io/helm-charts
     targetRevision: 25.24.0
@@ -95,14 +102,6 @@ spec:
                     identifier: "{{ $labels.instance }}"
                     description: "{{ $labels.job }} exporter job has been down for more than 5 minutes."
                     grafana_dashboard: "http://192.168.3.63:3000/d/rYdddlPWk/node-exporter-full?orgId=1&refresh=1m"
-
-  destination:
-    server: https://kubernetes.default.svc
-    namespace: monitoring
-  syncPolicy:
-    automated:
-      prune: true
-      selfHeal: true
 
 ---
 apiVersion: argoproj.io/v1alpha1

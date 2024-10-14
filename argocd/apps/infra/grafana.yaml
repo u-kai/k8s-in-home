@@ -8,10 +8,6 @@ metadata:
     environment: all
 spec:
   project: default
-  source:
-    repoURL: https://grafana.github.io/helm-charts
-    targetRevision: 8.5.3
-    chart: grafana
   destination:
     server: https://kubernetes.default.svc
     namespace: monitoring
@@ -19,24 +15,10 @@ spec:
     automated:
       prune: true
       selfHeal: true
-  helm:
-    valueFiles:
-      - values/grafana.yaml
----
-apiVersion: argoproj.io/v1alpha1
-kind: Application
-metadata:
-  name: grafana-resources
-  namespace: argocd
-  labels:
-    app: grafana
-    environment: all
-spec:
-  project: default
   source:
-    path: argocd/apps/infra/resources/grafana
-    repoURL: https://github.com/u-kai/k8s-in-home.git
-    targetRevision: main
+    repoURL: https://grafana.github.io/helm-charts
+    targetRevision: 8.5.3
+    chart: grafana
     helm:
       values: |
         # Administrator credentials when not using an existing secret (see below)
@@ -57,6 +39,21 @@ spec:
           - name: Loki
             type: loki
             url: http://loki:3100
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: grafana-resources
+  namespace: argocd
+  labels:
+    app: grafana
+    environment: all
+spec:
+  project: default
+  source:
+    path: argocd/apps/infra/resources/grafana
+    repoURL: https://github.com/u-kai/k8s-in-home.git
+    targetRevision: main
   destination:
     server: https://kubernetes.default.svc
     namespace: monitoring
