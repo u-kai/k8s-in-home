@@ -36,17 +36,17 @@ spec:
         property: password
 
 ---
-apiVersion: apps/v1
-kind: Service
-metadata:
-  name: grafana
-  namespace: monitoring
-  labels:
-    app: grafana
-spec:
-  type: LoadBalancer
-  ports:
-    - port: 80
-      targetPort: 3000
-  selector:
-    app: grafana
+#apiVersion: apps/v1
+#kind: Service
+#metadata:
+#  name: grafana
+#  namespace: monitoring
+#  labels:
+#    app: grafana
+#spec:
+#  type: LoadBalancer
+#  ports:
+#    - port: 80
+#      targetPort: 3000
+#  selector:
+#    app: grafana
