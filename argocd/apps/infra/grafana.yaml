@@ -32,6 +32,12 @@ spec:
           userKey: user
           passwordKey: password
 
+        dashboards:
+          default:
+            prometheus-stats:
+              gnetId: 1860
+              revision: 37 
+              datasource: Prometheus
         datasources:
           datasources.yaml:
             apiVersion: 1
