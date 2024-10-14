@@ -42,25 +42,21 @@ spec:
         # Administrator credentials when not using an existing secret (see below)
         adminUser: admin
         # adminPassword: strongpassword
-        
+
         # Use an existing secret for the admin user.
         admin:
           ## Name of the secret. Can be templated.
           existingSecret: "grafana-admin-password"
           userKey: user
           passwordKey: password
-        
-        ## Configure grafana datasources
-        ## ref: http://docs.grafana.org/administration/provisioning/#datasources
-        ##
-datasources:
-  - name: Prometheus
-    type: prometheus
-    url: http://prometheus-server
-    isDefault: true
-  - name: Loki
-    type: loki
-    url: http://loki:3100
+        datasources:
+          - name: Prometheus
+            type: prometheus
+            url: http://prometheus-server
+            isDefault: true
+          - name: Loki
+            type: loki
+            url: http://loki:3100
   destination:
     server: https://kubernetes.default.svc
     namespace: monitoring
