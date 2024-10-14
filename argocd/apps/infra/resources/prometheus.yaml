@@ -46,12 +46,28 @@ kind: PersistentVolume
 apiVersion: v1
 metadata:
   name: prometheus-pv
+  labels:
+    app: prometheus-server
 spec:
   capacity:
-    storage: 15Gi
+    storage: 10Gi
   accessModes:
     - ReadWriteOnce
   persistentVolumeReclaimPolicy: Delete
   nfs:
     server: 192.168.3.28
     path: /media/pi/ex-ssd/prometheus
+---
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: alertmanager-pv
+spec:
+  capacity:
+    storage: 5Gi
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Delete
+  nfs:
+    server: 192.168.3.28
+    path: /media/pi/ex-ssd/alertmanager

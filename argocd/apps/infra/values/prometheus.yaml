@@ -548,7 +548,7 @@ server:
     ## Persistent Volume Name
     ## Useful if Persistent Volumes have been provisioned in advance and you want to use a specific one
     ##
-    # volumeName: ""
+    volumeName: "prometheus-pv"
 
   emptyDir:
     ## Prometheus server emptyDir volume size limit
@@ -1346,8 +1346,7 @@ alertmanager:
   enabled: true
 
   persistence:
-    size: 10Gi
-    volumeName: "prometheus-pv"
+    size: 2Gi
 
   podSecurityContext:
     runAsUser: 65534
@@ -1357,11 +1356,11 @@ alertmanager:
   extraSecretMounts:
     - name: secret-file
       mountPath: /etc/secret
-      secretName: alertmanager-slack-secrets
+      secretName: alertmanager-secrets
       readOnly: true
     - name: notifications-tmpl
       mountPath: /alertmanager
-      secretName: alertmanager-slack-templates
+      secretName: alertmanager-templates
       readOnly: true
 
   config:
