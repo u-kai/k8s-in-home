@@ -1,7 +1,26 @@
+apiVersion: external-secrets.io/v1beta1
+kind: ExternalSecret
+metadata:
+  name: alertmanager-slack-url-es
+  namespace: monitoring
+spec:
+  refreshInterval: 24h # SecretStoreプロバイダーから再度値を読み込む時間を指定
+  secretStoreRef:
+    name: secret-store
+    kind: SecretStore
+  target:
+    name: alertmanager-slack-url
+    creationPolicy: Owner
+  data: # 取得する秘匿情報を指定する
+    - secretKey: skack-api-url
+      remoteRef:
+        key: alertmanager-slack-url
+        property: slackUrl
+---
 apiVersion: v1
 kind: Secret
 metadata:
-  name: alertmanager-templates
+  name: alertmanager-slack-templates
   namespace: monitoring
 stringData:
   notifications.tmpl: |-
@@ -21,3 +40,18 @@ stringData:
     {{ end }}{{ end }}
     {{ end }}
     {{ end }}
+
+---
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: prometheus-pv
+spec:
+  capacity:
+    storage: 15Gi
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Delete
+  nfs:
+    server: 192.168.3.28
+    path: /media/pi/ex-ssd/prometheus

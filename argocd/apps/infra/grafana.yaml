@@ -1,17 +1,17 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: prometheus
+  name: grafana
   namespace: argocd
   labels:
-    app: prometheus
+    app: grafana
     environment: all
 spec:
   project: default
   source:
-    repoURL: https://prometheus-community.github.io/helm-charts
-    targetRevision: 25.24.0
-    chart: prometheus
+    repoURL: https://grafana.github.io/helm-charts
+    targetRevision: 1.15.0
+    chart: grafana
   destination:
     server: https://kubernetes.default.svc
     namespace: monitoring
@@ -21,20 +21,20 @@ spec:
       selfHeal: true
   helm:
     valueFiles:
-      - values/prometheus.yaml
+      - values/grafana.yaml
 ---
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: prometheus-resources
+  name: grafana-resources
   namespace: argocd
   labels:
-    app: prometheus
+    app: grafana
     environment: all
 spec:
   project: default
   source:
-    path: resources/prometheus.yaml
+    path: resources/grafana.yaml
     repoURL: https://github.com/u-kai/k8s-in-home.git
     targetRevision: main
   destination:
