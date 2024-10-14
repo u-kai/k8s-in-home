@@ -26,27 +26,27 @@ spec:
     name: grafana-admin-password
     creationPolicy: Owner
   data: # 取得する秘匿情報を指定する
-    - secretKey: grafana-admin-password
+    - secretKey: user
       remoteRef:
-        key: user
+        key: grafana-admin-password
         property: user
-    - secretKey: grafana-admin-password
+    - secretKey: password
       remoteRef:
-        key: password
+        key: grafana-admin-password
         property: password
 
 ---
-#apiVersion: apps/v1
-#kind: Service
-#metadata:
-#  name: grafana
-#  namespace: monitoring
-#  labels:
-#    app: grafana
-#spec:
-#  type: LoadBalancer
-#  ports:
-#    - port: 80
-#      targetPort: 3000
-#  selector:
-#    app: grafana
+apiVersion: apps/v1
+kind: Service
+metadata:
+  name: grafana
+  namespace: monitoring
+  labels:
+    app: grafana
+spec:
+  type: LoadBalancer
+  ports:
+    - port: 80
+      targetPort: 3000
+  selector:
+    app: grafana
