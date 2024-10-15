@@ -62,9 +62,9 @@ spec:
                       - type: button
                         text: "GrafanaDashboard"
                         url: "{{ .CommonAnnotations.grafana_dashboard }}"
+            route:
+              receiver: page
         serverFiles:
-          ## Alerts configuration
-          ## Ref: https://prometheus.io/docs/prometheus/latest/configuration/alerting_rules/
           alerting_rules.yml:
             groups:
               - name: CPU Usage
