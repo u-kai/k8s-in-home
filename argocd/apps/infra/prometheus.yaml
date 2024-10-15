@@ -35,6 +35,7 @@ spec:
             runAsNonRoot: true
             runAsGroup: 65534
             fsGroup: 65534
+
           extraSecretMounts:
             - name: secret-file
               mountPath: /etc/secret

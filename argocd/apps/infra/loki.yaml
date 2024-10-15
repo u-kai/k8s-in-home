@@ -48,6 +48,15 @@ spec:
           extraEnvFrom:
             - secretRef:
                 name: loki-aws-credentials
+        backend:
+          replicas: 0
+        write:
+          replicas: 0
+        read:
+          replicas:
+            0
+        minio:
+          enabled: false
 
   destination:
     server: https://kubernetes.default.svc
