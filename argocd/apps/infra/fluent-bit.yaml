@@ -68,9 +68,3 @@ spec:
                 Host loki-gateway
                 Port 80
                 auto_kubernetes_labels on
-
-            [OUTPUT]
-                Name loki
-                Match host.*
-                Host loki-gateway
-                Port 80
