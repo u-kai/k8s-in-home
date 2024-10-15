@@ -51,7 +51,7 @@ spec:
                   name: loki-aws-credentials
 
         singleBinary:
-          replicas: 1 
+          replicas: 2 
           extraArgs:
             - "--config.expand-env=true"
           extraEnvFrom:
