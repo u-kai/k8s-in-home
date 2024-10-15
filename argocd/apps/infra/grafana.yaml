@@ -72,9 +72,9 @@ spec:
                 url: http://prometheus-server
                 access: proxy
                 isDefault: true
-              #- name: Loki
-              #  type: loki
-              #  url: http://loki.logging.svc.cluster.local:3100
+              - name: Loki
+                type: loki
+                url: http://loki.logging.svc.cluster.local:3100
 ---
 apiVersion: argoproj.io/v1alpha1
 kind: Application
