@@ -15,7 +15,7 @@ spec:
     helm:
       values: |
         auth:
-          strategy: "anonymous"
+          strategy: anonymous
   destination:
     server: https://kubernetes.default.svc
     namespace: istio-system
