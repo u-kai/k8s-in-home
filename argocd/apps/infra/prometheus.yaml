@@ -43,20 +43,20 @@ spec:
               secretName: alertmanager-slack-url
               readOnly: true
             - name: notifications-tmpl
-              mountPath: /alertmanager-tmpl
+              mountPath: /alertmanager
               secretName: alertmanager-slack-templates
               readOnly: true
 
           config:
             enabled: true
             templates:
-              - /alertmanager-tmpl/notifications.tmpl
+              - /alertmanager/notifications.tmpl
             receivers:
               - name: page
                 slack_configs:
                   - channel: "#page"
                     send_resolved: true
-                    api_url_file: /etc/secret/secret-file
+                    api_url_file: /etc/secret/slack-api-url
                     title: '{{ template "custom_title" . }}'
                     text: '{{ template "custom_slack_message" . }}'
                     actions:
@@ -79,8 +79,7 @@ spec:
                       identifier: "{{ $labels.node }}"
                       description:
                         "{{ $labels.instance }} has a high CPU usage."
-                        # TODO: refactoring
-                      grafana_dashboard: "http://192.168.3.63:3000/d/k8s_views_pods/kubernetes-views-pods?orgId=1&refresh=30s"
+                      grafana_dashboard: "http://grafana.example.com/d/k8s_views_pods/kubernetes-views-pods?orgId=1&refresh=30s"
               - name: Memory Usages
                 rules:
                   - alert: HighMemoryUsages
@@ -91,7 +90,7 @@ spec:
                     annotations:
                       identifier: "{{ $labels.node }}"
                       description: "{{ $labels.instance }} has a high memory usage."
-                      grafana_dashboard: "http://192.168.3.63:3000/d/k8s_views_pods/kubernetes-views-pods?orgId=1&refresh=30s"
+                      grafana_dashboard: "http://grafana.example.com/d/k8s_views_pods/kubernetes-views-pods?orgId=1&refresh=30s"
 
               - name: Node Down
                 rules:
@@ -101,7 +100,7 @@ spec:
                     annotations:
                       identifier: "{{ $labels.instance }}"
                       description: "{{ $labels.job }} exporter job has been down for more than 5 minutes."
-                      grafana_dashboard: "http://192.168.3.63:3000/d/rYdddlPWk/node-exporter-full?orgId=1&refresh=1m"
+                      grafana_dashboard: "http://grafana.example.com/d/rYdddlPWk/node-exporter-full?orgId=1&refresh=1m"
 
 ---
 apiVersion: argoproj.io/v1alpha1
