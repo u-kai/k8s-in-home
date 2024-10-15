@@ -54,6 +54,15 @@ spec:
               gnetId: 1860
               revision: 37 
               datasource: Prometheus
+            k8s-view-pods:
+              gnetId: 15760
+              revision: 32
+              datasource: Prometheus
+            istio:
+              gnetId: 7645
+              revision: 231
+              datasource: Prometheus
+
         datasources:
           datasources.yaml:
             apiVersion: 1
