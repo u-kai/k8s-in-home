@@ -40,6 +40,15 @@ spec:
               region: "ap-northeast-1"
               access_key_id: ${aws_access_key_id}
               secret_access_key: ${aws_secret_access_key}
+        chunksCache:
+          allocatedMemory: 500
+          singleBinary:
+            replicas: 2
+            extraArgs:
+              - "--config.expand-env=true"
+            extraEnvFrom:
+              - secretRef:
+                  name: loki-aws-credentials
 
         singleBinary:
           replicas: 1 
