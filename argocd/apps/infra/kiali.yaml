@@ -10,8 +10,12 @@ spec:
   project: default
   source:
     repoURL: https://kiali.org/helm-charts
-    targetRevision: 1.30.0
+    targetRevision: 1.89
     chart: kiali-server
+    helm:
+      values: |
+        auth:
+          strategy: anonymous
   destination:
     server: https://kubernetes.default.svc
     namespace: istio-system
