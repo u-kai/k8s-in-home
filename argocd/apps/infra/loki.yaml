@@ -14,7 +14,6 @@ spec:
     chart: loki
     helm:
       values: |
-        deploymentMode: SingleBinary
         loki:
           commonConfig:
               replication_factor: 1
