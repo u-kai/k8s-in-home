@@ -14,9 +14,10 @@ spec:
     chart: loki
     helm:
       values: |
+        deploymentMode: SingleBinary
         loki:
           commonConfig:
-              replication_factor: 1
+            replication_factor: 2
           auth_enabled: false
           tracing:
             enabled: true
@@ -40,6 +41,7 @@ spec:
               region: "ap-northeast-1"
               access_key_id: ${aws_access_key_id}
               secret_access_key: ${aws_secret_access_key}
+
         chunksCache:
           allocatedMemory: 500
           singleBinary:
@@ -51,12 +53,13 @@ spec:
                   name: loki-aws-credentials
 
         singleBinary:
-          replicas: 2 
+          replicas: 3
           extraArgs:
             - "--config.expand-env=true"
           extraEnvFrom:
             - secretRef:
                 name: loki-aws-credentials
+
         backend:
           replicas: 0
         write:
