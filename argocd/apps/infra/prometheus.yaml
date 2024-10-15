@@ -26,8 +26,6 @@ spec:
             volumeName: "prometheus-pv"
 
         alertmanager:
-          ## If false, alertmanager will not be installed
-          ##
           enabled: true
           persistence:
             size: 2Gi
@@ -43,14 +41,14 @@ spec:
               secretName: alertmanager-slack-url
               readOnly: true
             - name: notifications-tmpl
-              mountPath: /alertmanager
+              mountPath: /alertmanager-tmpl
               secretName: alertmanager-slack-templates
               readOnly: true
 
           config:
             enabled: true
             templates:
-              - /alertmanager/notifications.tmpl
+              - /alertmanager-tmpl/notifications.tmpl
             receivers:
               - name: page
                 slack_configs:

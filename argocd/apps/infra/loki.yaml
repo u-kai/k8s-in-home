@@ -1,0 +1,81 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: loki
+  namespace: argocd
+  labels:
+    app: loki
+    environment: all
+spec:
+  project: default
+  source:
+    repoURL: https://grafana.github.io/helm-charts
+    targetRevision: 6.16.0
+    chart: loki
+    helm:
+      values: |
+        deploymentMode: SingleBinary
+        loki:
+          commonConfig:
+              replication_factor: 1
+          auth_enabled: false
+          tracing:
+            enabled: true
+          schemaConfig:
+            configs:
+              - from: "2024-01-01"
+                store: tsdb
+                index:
+                  prefix: loki_index_
+                  period: 24h
+                object_store: s3
+                schema: v13
+
+          storage:
+            type: "s3"
+            bucketNames:
+              chunks: "kai-loki-backend-chunks-bucket"
+              ruler: "kai-loki-backend-index-bucket"
+              admin: "kai-loki-backend-admin-bucket"
+            s3:
+              region: "ap-northeast-1"
+              access_key_id: ${aws_access_key_id}
+              secret_access_key: ${aws_secret_access_key}
+
+        singleBinary:
+          replicas: 1 
+          extraArgs:
+            - "--config.expand-env=true"
+          extraEnvFrom:
+            - secretRef:
+                name: loki-aws-credentials
+
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: logging
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: loki-resources
+  namespace: argocd
+  labels:
+    app: loki-resources
+    environment: all
+spec:
+  project: default
+  source:
+    path: argocd/apps/infra/resources/loki
+    repoURL: https://github.com/u-kai/k8s-in-home.git
+    targetRevision: main
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: logging
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
