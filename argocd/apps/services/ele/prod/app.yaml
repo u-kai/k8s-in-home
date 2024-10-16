@@ -10,7 +10,7 @@ spec:
   destination:
     namespace: prod
     server: https://kubernetes.default.svc
-  project: ele-prod
+  project: default
   source:
     kustomize:
     path: services/ele-front/overlays/prod
@@ -36,7 +36,7 @@ spec:
   destination:
     namespace: prod
     server: https://kubernetes.default.svc
-  project: ele-prod
+  project: default
   source:
     kustomize:
     path: services/translate/overlays/prod
@@ -62,7 +62,7 @@ spec:
   destination:
     namespace: prod
     server: https://kubernetes.default.svc
-  project: ele-prod
+  project: default
   source:
     kustomize:
     path: services/wordbook/overlays/prod
