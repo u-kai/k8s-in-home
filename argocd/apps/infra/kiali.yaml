@@ -11,14 +11,17 @@ spec:
   source:
     repoURL: https://kiali.org/helm-charts
     targetRevision: 1.89.0
-    chart: kiali-server
+    chart: kiali-operator
     helm:
       values: |
-        auth:
+        cr:
+          create: true
+          name: kiali
+          namespace: "istio-system"
           strategy: anonymous
   destination:
     server: https://kubernetes.default.svc
-    namespace: istio-system
+    namespace: kiali-operator
   syncPolicy:
     automated:
       prune: true

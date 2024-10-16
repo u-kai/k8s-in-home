@@ -50,6 +50,13 @@ metadata:
 apiVersion: v1
 kind: Namespace
 metadata:
+  name: kiali-operator
+  labels:
+    name: kiail-operator
+---
+apiVersion: v1
+kind: Namespace
+metadata:
   name: metallb-system
   labels:
     name: metallb-system
