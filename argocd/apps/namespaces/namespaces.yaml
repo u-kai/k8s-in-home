@@ -11,6 +11,7 @@ metadata:
   name: dev
   labels:
     name: dev
+    istio-injection: enabled
 ---
 apiVersion: v1
 kind: Namespace
@@ -18,6 +19,7 @@ metadata:
   name: stg
   labels:
     name: stg
+    istio-injection: enabled
 ---
 apiVersion: v1
 kind: Namespace
@@ -25,6 +27,7 @@ metadata:
   name: prd
   labels:
     name: prd
+    istio-injection: enabled
 ---
 apiVersion: v1
 kind: Namespace
