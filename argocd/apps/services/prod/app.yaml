@@ -13,7 +13,7 @@ spec:
   project: default
   source:
     kustomize:
-    path: services/ele-front/overlays/prod
+    path: services/ele/front/overlays/prod
     repoURL: https://github.com/u-kai/k8s-in-home.git
     targetRevision: main
   syncPolicy:
@@ -39,7 +39,7 @@ spec:
   project: default
   source:
     kustomize:
-    path: services/translate/overlays/prod
+    path: services/ele/trans/overlays/prod
     repoURL: https://github.com/u-kai/k8s-in-home.git
     targetRevision: main
   syncPolicy:
@@ -65,7 +65,7 @@ spec:
   project: default
   source:
     kustomize:
-    path: services/wordbook/overlays/prod
+    path: services/ele/wordbook/overlays/prod
     repoURL: https://github.com/u-kai/k8s-in-home.git
     targetRevision: main
   syncPolicy:

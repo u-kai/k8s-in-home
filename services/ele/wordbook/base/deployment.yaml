@@ -1,3 +1,21 @@
+apiVersion: external-secrets.io/v1beta1
+kind: ExternalSecret
+metadata:
+  name: mysql-password
+spec:
+  refreshInterval: 24h # SecretStoreプロバイダーから再度値を読み込む時間を指定
+  secretStoreRef:
+    name: secret-store
+    kind: SecretStore
+  target:
+    name: mysql-password
+    creationPolicy: Owner
+  data: # 取得する秘匿情報を指定する
+    - secretKey: password
+      remoteRef:
+        key: wordbook-db-password-prod
+        property: password
+---
 apiVersion: v1
 kind: Service
 metadata:
@@ -54,7 +72,7 @@ spec:
             - name: MYSQL_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: wordbook-db-secret
+                  name: mysql-password
                   key: password
 
 ---
@@ -142,6 +160,20 @@ spec:
       storage: 20Gi
   storageClassName: wordbook
 
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: wordbook-db-pv
+spec:
+  capacity:
+    storage: 20Gi
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Recycle
+  storageClassName: wordbook
+  hostPath:
+    path: /media/pi/ex-ssd/wordbook
 ---
 apiVersion: v1
 kind: Service

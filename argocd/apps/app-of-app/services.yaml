@@ -10,7 +10,7 @@ spec:
   project: default
   source:
     repoURL: https://github.com/u-kai/k8s-in-home.git
-    path: argocd/apps/services/ele/prod
+    path: argocd/apps/services/prod
     targetRevision: main
   destination:
     server: https://kubernetes.default.svc
