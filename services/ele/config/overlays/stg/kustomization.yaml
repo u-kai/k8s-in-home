@@ -4,4 +4,4 @@ patchesStrategicMerge:
   - jwks.yaml
 resources:
   - ../../base
-namespace: test
+namespace: stg

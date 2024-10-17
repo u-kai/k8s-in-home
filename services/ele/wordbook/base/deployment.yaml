@@ -1,14 +1,14 @@
 apiVersion: external-secrets.io/v1beta1
 kind: ExternalSecret
 metadata:
-  name: mysql-password
+  name: wordbook-db-password
 spec:
   refreshInterval: 24h # SecretStoreプロバイダーから再度値を読み込む時間を指定
   secretStoreRef:
     name: secret-store
     kind: SecretStore
   target:
-    name: mysql-password
+    name: wordbook-db-password
     creationPolicy: Owner
   data: # 取得する秘匿情報を指定する
     - secretKey: password
@@ -72,7 +72,7 @@ spec:
             - name: MYSQL_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: mysql-password
+                  name: wordbook-db-password
                   key: password
 
 ---
@@ -97,7 +97,7 @@ spec:
             - name: MYSQL_ROOT_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: wordbook-db-secret
+                  name: wordbook-db-password
                   key: password
           ports:
             - containerPort: 3306
