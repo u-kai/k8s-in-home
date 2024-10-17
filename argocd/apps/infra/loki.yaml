@@ -17,7 +17,7 @@ spec:
         deploymentMode: SingleBinary
         loki:
           commonConfig:
-            replication_factor: 2
+            replication_factor: 1
           auth_enabled: false
           tracing:
             enabled: true
@@ -45,7 +45,7 @@ spec:
         chunksCache:
           allocatedMemory: 500
           singleBinary:
-            replicas: 2
+            replicas: 1
             extraArgs:
               - "--config.expand-env=true"
             extraEnvFrom:
@@ -53,7 +53,7 @@ spec:
                   name: loki-aws-credentials
 
         singleBinary:
-          replicas: 3
+          replicas: 1 
           extraArgs:
             - "--config.expand-env=true"
           extraEnvFrom:
