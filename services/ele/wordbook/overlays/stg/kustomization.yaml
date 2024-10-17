@@ -11,4 +11,4 @@ images:
     newTag: c75443648b678e7fd4fe38eeee2271ee2b827447
 # -devをつけると、リソースに依存している他のリソースに認識されなくな流ので不採用
 #nameSuffix: -dev
-namespace: test
+namespace: stg

@@ -1,0 +1,77 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: ele-front-stg
+  namespace: argocd
+  labels:
+    app: ele-front
+    environment: stg
+spec:
+  destination:
+    namespace: stg
+    server: https://kubernetes.default.svc
+  project: default
+  source:
+    kustomize:
+    path: services/ele/front/overlays/stg
+    repoURL: https://github.com/u-kai/k8s-in-home.git
+    targetRevision: main
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+      - ApplyOutOfSyncOnly=true
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: translate
+  namespace: argocd
+  labels:
+    app: translate
+    environment: stg
+spec:
+  destination:
+    namespace: stg
+    server: https://kubernetes.default.svc
+  project: default
+  source:
+    kustomize:
+    path: services/ele/translate/overlays/stg
+    repoURL: https://github.com/u-kai/k8s-in-home.git
+    targetRevision: main
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+      - ApplyOutOfSyncOnly=true
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: wordbook
+  namespace: argocd
+  labels:
+    app: wordbook
+    environment: stg
+spec:
+  destination:
+    namespace: stg
+    server: https://kubernetes.default.svc
+  project: default
+  source:
+    kustomize:
+    path: services/ele/wordbook/overlays/stg
+    repoURL: https://github.com/u-kai/k8s-in-home.git
+    targetRevision: main
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+      - ApplyOutOfSyncOnly=true

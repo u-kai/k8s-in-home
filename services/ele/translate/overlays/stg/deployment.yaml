@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: translate-deployment
+spec:
+  replicas: 1
+---
+apiVersion: external-secrets.io/v1beta1
+kind: ExternalSecret
+metadata:
+  name: openai-secret
+spec:
+  refreshInterval: 24h # SecretStoreプロバイダーから再度値を読み込む時間を指定
+  secretStoreRef:
+    name: secret-store
+    kind: SecretStore
+  target:
+    name: openai-secret
+    creationPolicy: Owner
+  data: # 取得する秘匿情報を指定する
+    - secretKey: api-key
+      remoteRef:
+        key: translate-stg-openai-api-key
+        property: OPENAI_API_KEY
