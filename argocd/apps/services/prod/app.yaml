@@ -75,3 +75,29 @@ spec:
     syncOptions:
       - CreateNamespace=true
       - ApplyOutOfSyncOnly=true
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: ele-config
+  namespace: argocd
+  labels:
+    app: ele-config
+    environment: prod
+spec:
+  destination:
+    namespace: prod
+    server: https://kubernetes.default.svc
+  project: default
+  source:
+    kustomize:
+    path: services/ele/configs/overlays/prod
+    repoURL: https://github.com/u-kai/k8s-in-home.git
+    targetRevision: main
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+      - ApplyOutOfSyncOnly=true
