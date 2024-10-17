@@ -39,7 +39,7 @@ spec:
   project: default
   source:
     kustomize:
-    path: services/ele/trans/overlays/prod
+    path: services/ele/translate/overlays/prod
     repoURL: https://github.com/u-kai/k8s-in-home.git
     targetRevision: main
   syncPolicy:
