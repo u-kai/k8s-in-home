@@ -6,14 +6,21 @@ metadata:
 spec:
   gatewayClassName: istio
   listeners:
-    - name: prod
-      hostname: "*.kaiandkai.com"
+    - name: ele-backend-gateway
+      hostname: "api.kaiandkai.com"
       port: 443
       protocol: HTTP
       allowedRoutes:
         namespaces:
           from: All
-    - name: other
+    - name: ele-frontend-gateway
+      hostname: "www.kaiandkai.com"
+      port: 443
+      protocol: HTTP
+      allowedRoutes:
+        namespaces:
+          from: All
+    - name: non-prod-gateway
       hostname: "*.kaiandkai.com"
       port: 80
       protocol: HTTP
