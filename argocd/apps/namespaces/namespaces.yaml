@@ -24,9 +24,9 @@ metadata:
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: prd
+  name: prod
   labels:
-    name: prd
+    name: prod
     istio-injection: enabled
 ---
 apiVersion: v1
