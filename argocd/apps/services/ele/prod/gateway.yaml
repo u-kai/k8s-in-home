@@ -1,0 +1,23 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: ele-gateway
+  namespace: argocd
+  labels:
+    app: ele-gateway
+    environment: ele-all
+spec:
+  destination:
+    server: https://kubernetes.default.svc
+  project: default
+  source:
+    path: services/ele/gateway
+    repoURL: https://github.com/u-kai/k8s-in-home.git
+    targetRevision: main
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+      - ApplyOutOfSyncOnly=true
