@@ -1,10 +1,10 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: ele-peer-auth
+  name: ele-auth
   namespace: argocd
   labels:
-    app: ele-peer-auth
+    app: ele-auth
     environment: prod
 spec:
   destination:
