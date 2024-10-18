@@ -7,7 +7,7 @@ spec:
     - "api.kaiandkai.com"
   parentRefs:
     - name: ele-backend-gateway
-      namespace: istio-gateway
+      namespace: prod
   rules:
     - matches:
         - path:
@@ -33,7 +33,7 @@ spec:
     - "www.kaiandkai.com"
   parentRefs:
     - name: ele-frontend-gateway
-      namespace: istio-gateway
+      namespace: prod
   rules:
     - matches:
         - path:
