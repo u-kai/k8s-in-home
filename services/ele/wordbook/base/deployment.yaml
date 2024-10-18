@@ -45,6 +45,7 @@ spec:
     metadata:
       labels:
         app: wordbook
+        auth: required
     spec:
       containers:
         - name: wordbook
