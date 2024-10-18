@@ -4,10 +4,6 @@ metadata:
   name: ele-backend-gateway
 spec:
   listeners:
-    - name: backend
-      hostname: "dev.kaiandkai.com"
-      port: 80
-      protocol: HTTP
 ---
 apiVersion: gateway.networking.k8s.io/v1beta1
 kind: Gateway
@@ -15,7 +11,3 @@ metadata:
   name: ele-frontend-gateway
 spec:
   listeners:
-    - name: frontend
-      hostname: "dev.www.kaiandkai.com"
-      port: 80
-      protocol: HTTP

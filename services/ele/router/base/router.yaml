@@ -6,7 +6,8 @@ spec:
   hostnames:
     - "api.kaiandkai.com"
   parentRefs:
-    - name: ele-backend-gateway
+    - name: ele-gateway
+      namespace: istio-gateway
   rules:
     - matches:
         - path:
@@ -31,7 +32,8 @@ spec:
   hostnames:
     - "www.kaiandkai.com"
   parentRefs:
-    - name: ele-frontend-gateway
+    - name: ele-gateway
+      namespace: istio-gateway
   rules:
     - matches:
         - path:

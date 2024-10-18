@@ -7,9 +7,3 @@ apiVersion: security.istio.io/v1beta1
 kind: PeerAuthentication
 metadata:
   name: mtls-permissive
-spec:
-  selector:
-    matchLabels:
-      access: permissive
-  mtls:
-    mode: PERMISSIVE

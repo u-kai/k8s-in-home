@@ -4,4 +4,4 @@ patchesStrategicMerge:
   - router.yaml
 resources:
   - ../../base
-namespace: test
+namespace: stg

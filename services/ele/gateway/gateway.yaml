@@ -1,0 +1,22 @@
+apiVersion: gateway.networking.k8s.io/v1beta1
+kind: Gateway
+metadata:
+  name: ele-gateway
+  namespace: istio-gateway
+spec:
+  gatewayClassName: istio
+  listeners:
+    - name: prod
+      hostname: "*.kaiandkai.com"
+      port: 443
+      protocol: HTTP
+      allowedRoutes:
+        namespaces:
+          from: All
+    - name: other
+      hostname: "*.kaiandkai.com"
+      port: 80
+      protocol: HTTP
+      allowedRoutes:
+        namespaces:
+          from: All
