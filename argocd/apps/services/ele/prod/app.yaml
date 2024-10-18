@@ -91,7 +91,7 @@ spec:
   project: default
   source:
     kustomize:
-    path: services/ele/configs/overlays/prod
+    path: services/ele/config/overlays/prod
     repoURL: https://github.com/u-kai/k8s-in-home.git
     targetRevision: main
   syncPolicy:
