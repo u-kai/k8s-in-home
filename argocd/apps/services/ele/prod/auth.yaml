@@ -13,7 +13,7 @@ spec:
   project: default
   source:
     kustomize:
-    path: services/ele/peer-auth/overlays/prod
+    path: services/ele/auth/overlays/prod
     repoURL: https://github.com/u-kai/k8s-in-home.git
     targetRevision: main
   syncPolicy:
