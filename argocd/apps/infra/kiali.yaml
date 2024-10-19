@@ -30,24 +30,9 @@ spec:
                     token: ""
                     type: "none"
                     use_kiali_token: false
-                    username: ""
-                  dashboards:
-                  - name: "Istio Service Dashboard"
-                    variables:
-                      namespace: "var-namespace"
-                      service: "var-service"
-                  - name: "Istio Workload Dashboard"
-                    variables:
-                      namespace: "var-namespace"
-                      workload: "var-workload"
-                  - name: "Istio Mesh Dashboard"
-                  - name: "Istio Control Plane Dashboard"
-                  - name: "Istio Performance Dashboard"
-                  - name: "Istio Wasm Extension Dashboard"
+                    username: "admin"
                   enabled: true
                   health_check_url: ""
-                  # default: in_cluster_url is undefined
-                  in_cluster_url: ""
                   is_core: false
                   url: "http://grafana.monitoring.svc.cluster.local:80"
                 istio:
@@ -59,10 +44,6 @@ spec:
                   gateway_api_classes: []
                   ingress_gateway_namespace: ""
                   istio_api_enabled: true
-                  # default: istio_canary_revision is undefined
-                  istio_canary_revision:
-                    current: "1-9-9"
-                    upgrade: "1-10-2"
                   istio_identity_domain: "svc.cluster.local"
                   istio_injection_annotation: "sidecar.istio.io/inject"
                   istio_sidecar_annotation: "sidecar.istio.io/status"
@@ -84,14 +65,8 @@ spec:
                   cache_enabled: true
                   cache_expiration: 300
                   # default: custom_headers is empty
-                  custom_headers:
-                    customHeader1: "customHeader1Value"
                   health_check_url: ""
                   is_core: true
-                  # default: query_scope is empty
-                  query_scope:
-                    mesh_id: "mesh-1"
-                    cluster: "cluster-east"
                   thanos_proxy:
                     enabled: false
                     retention_period: "7d"
