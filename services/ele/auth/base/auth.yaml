@@ -50,9 +50,6 @@ metadata:
 spec:
   mtls:
     mode: STRICT
-  selector:
-    matchLabels:
-      environment: prod
 
 ---
 apiVersion: security.istio.io/v1beta1
