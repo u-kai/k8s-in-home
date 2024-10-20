@@ -51,9 +51,7 @@ spec:
               action: keep
               regex: '.*-envoy-prom'
         server:
-          persistentVolume:
-            volumeName: "prometheus-pv"
-          replicaCount: 1
+          replicaCount: 2
 
         alertmanager:
           enabled: true
