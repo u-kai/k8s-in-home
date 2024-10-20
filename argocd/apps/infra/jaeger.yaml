@@ -11,7 +11,7 @@ spec:
   source:
     repoURL: https://jaegertracing.github.io/helm-charts
     targetRevision: 3.3.1
-    chart: base
+    chart: jaeger
   destination:
     server: https://kubernetes.default.svc
     namespace: istio-system
