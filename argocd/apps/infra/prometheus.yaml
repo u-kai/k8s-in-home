@@ -51,7 +51,7 @@ spec:
         server:
           persistentVolume:
             volumeName: "prometheus-pv"
-          replicaCount: 2
+          replicaCount: 1
 
         alertmanager:
           enabled: true

@@ -34,9 +34,9 @@ spec:
           storage:
             type: "s3"
             bucketNames:
-              chunks: "kai-loki-backend-chunks-bucket"
-              ruler: "kai-loki-backend-index-bucket"
-              admin: "kai-loki-backend-admin-bucket"
+              chunks: "kai-loki-backend-admin-bucket"
+              #ruler: "kai-loki-backend-index-bucket"
+              #admin: "kai-loki-backend-admin-bucket"
             s3:
               region: "ap-northeast-1"
               access_key_id: ${aws_access_key_id}
