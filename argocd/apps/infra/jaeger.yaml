@@ -14,11 +14,10 @@ spec:
     chart: jaeger
     helm:
       values: |
-        storage:
-          cassandra:
-            jvm:
-              maxHeapSize: "1024MB"
-              newHeapSize: "256MB"
+        cassandra:
+          jvm:
+            maxHeapSize: "1024MB"
+            newHeapSize: "256MB"
   destination:
     server: https://kubernetes.default.svc
     namespace: istio-system
