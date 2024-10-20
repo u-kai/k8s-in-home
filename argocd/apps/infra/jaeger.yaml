@@ -14,8 +14,8 @@ spec:
     chart: jaeger
     helm:
       values: |
-        cassandra:
-          config:
+        storage:
+          cassandra:
             jvm:
               maxHeapSize: "1024MB"
               newHeapSize: "256MB"
