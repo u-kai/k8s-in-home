@@ -21,6 +21,10 @@ spec:
     chart: prometheus
     helm:
       values: |
+        server:
+          persistentVolume:
+            volumeName: "prometheus-pv"
+          replicaCount: 1
         extraScrapeConfigs: |
           #          - job_name: istio-kubernetes-pods
           #            metric_relabel_configs:
@@ -50,10 +54,6 @@ spec:
             - source_labels: [__meta_kubernetes_pod_container_port_name]
               action: keep
               regex: '.*-envoy-prom'
-        server:
-          persistentVolume:
-            volumeName: "prometheus-pv"
-          replicaCount: 2
 
         alertmanager:
           enabled: true

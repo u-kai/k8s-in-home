@@ -20,8 +20,7 @@ This is my hobby
 - ネットワーク
   - cilium
 - メトリクス収集
-  - prometheus
-- ログ収集
+  - prometheus ログ収集
   - fluentbit
   - loki
 - トレース収集
@@ -52,3 +51,9 @@ This is my hobby
     - ???
   - シークレット管理
     - external-secrets??
+
+## メモ
+
+- prometheus-sever が破壊された後再度構築される時、元の pv を消さない限りずっとエラーが出ていた
+  - statefulsets じゃないから？deployment だとこういうことが起きやすいのかな？
+  - 関係ない？
