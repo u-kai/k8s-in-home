@@ -30,3 +30,31 @@ spec:
             enabled: true
           prometheusRules:
             enabled: true
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: falco-resources
+  namespace: argocd
+  labels:
+    app: falco-resources
+    environment: all
+spec:
+  project: default
+  source:
+    path: argocd/apps/infra/resources/falco
+    repoURL: https://github.com/u-kai/k8s-in-home.git
+    targetRevision: main
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: falco
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    retry:
+      limit: 5
+      backoff:
+        duration: 5s
+        factor: 2
+        maxDuration: 3m
