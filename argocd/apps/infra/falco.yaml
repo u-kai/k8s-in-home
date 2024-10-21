@@ -32,7 +32,7 @@ spec:
           prometheusRules:
             enabled: true
         customRules:
-          rules-filter.yaml |-
+          rules-filter.yaml: |-
             - macro: user_known_contact_k8s_api_server_activities
               condition: container and (container.image.repository = "quay.io/kiali/kiali")
 ---
