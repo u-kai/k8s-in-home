@@ -1,0 +1,18 @@
+apiVersion: external-secrets.io/v1beta1
+kind: ExternalSecret
+metadata:
+  name: slack-api-url
+  namespace: falco
+spec:
+  refreshInterval: 24h # SecretStoreプロバイダーから再度値を読み込む時間を指定
+  secretStoreRef:
+    name: slack-api-url
+    kind: SecretStore
+  target:
+    name: slack-api-url
+    creationPolicy: Owner
+  data: # 取得する秘匿情報を指定する
+    - secretKey: SLACK_WEBHOOKURL
+      remoteRef:
+        key: slack-api-url
+        property: SLACK_WEBHOOK_URL
