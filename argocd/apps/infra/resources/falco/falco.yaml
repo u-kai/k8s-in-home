@@ -6,7 +6,7 @@ metadata:
 spec:
   refreshInterval: 24h # SecretStoreプロバイダーから再度値を読み込む時間を指定
   secretStoreRef:
-    name: slack-api-url
+    name: secret-store
     kind: SecretStore
   target:
     name: slack-api-url
