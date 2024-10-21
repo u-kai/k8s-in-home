@@ -16,3 +16,17 @@ spec:
       remoteRef:
         key: slack-api-url
         property: SLACK_WEBHOOK_URL
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: falcosidekick-pv
+spec:
+  capacity:
+    storage: 2Gi
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Delete
+  nfs:
+    server: 192.168.3.28
+    path: /media/pi/ex-ssd/falcosidekick
