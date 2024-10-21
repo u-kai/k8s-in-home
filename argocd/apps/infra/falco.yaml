@@ -34,7 +34,7 @@ spec:
         customRules:
           rules-filter.yaml: |-
             - macro: user_known_contact_k8s_api_server_activities
-              condition: container and (container.image.repository = "quay.io/kiali/kiali")
+              condition: container and (container.image.repository = "quay.io/kiali/kiali" or container.image.repository = "quay.io/argoproj/argocd")
 ---
 apiVersion: argoproj.io/v1alpha1
 kind: Application
