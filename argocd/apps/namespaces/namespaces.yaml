@@ -46,6 +46,13 @@ metadata:
 apiVersion: v1
 kind: Namespace
 metadata:
+  name: falco
+  labels:
+    name: falco
+---
+apiVersion: v1
+kind: Namespace
+metadata:
   name: istio-system
   labels:
     name: istio-system
