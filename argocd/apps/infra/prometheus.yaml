@@ -26,6 +26,19 @@ spec:
             volumeName: "prometheus-pv"
           replicaCount: 1
         extraScrapeConfigs: |
+          - job_name: "node-ssh-banners"
+            params:
+              module: [ssh_banner]
+            kubernetes_sd_configs:
+              - role: node
+            relabel_configs:
+              - source_labels: [__address__]
+                target_label: __param_target
+              - source_labels: [__param_target]
+                target_label: instance
+              - target_label: __address__
+                replacement: prometheus-blackbox-exporter:9115
+
           #          - job_name: istio-kubernetes-pods
           #            metric_relabel_configs:
           #            - action: drop
