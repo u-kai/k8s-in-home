@@ -36,7 +36,7 @@ spec:
             - macro: user_known_contact_k8s_api_server_activities
               condition: container and (container.image.repository = "quay.io/kiali/kiali" or container.image.repository = "quay.io/argoproj/argocd" or container.image.repository = "docker.io/kiwigrid/k8s-sidecar" or container.image.repository = "cr.fluentbit.io/fluent/fluent-bit" or container.image.repository = "quay.io/frrouting/frr")
             - list: user_known_packet_socket_binaries
-              items: ["bfdd"]
+              items: ["bfdd","speaker"]
 ---
 apiVersion: argoproj.io/v1alpha1
 kind: Application
