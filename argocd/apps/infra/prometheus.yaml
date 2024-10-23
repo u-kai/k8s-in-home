@@ -27,6 +27,7 @@ spec:
           replicaCount: 1
         extraScrapeConfigs: |
           - job_name: "node-ssh-banners"
+            metrics_path: /probe
             params:
               module: [ssh_banner]
             kubernetes_sd_configs:
@@ -168,6 +169,21 @@ spec:
     chart: prometheus-blackbox-exporter
     helm:
       values: |
+        config:
+            modules:
+              http_2xx:
+                prober: http
+                timeout: 5s
+                http:
+                  valid_http_versions: ["HTTP/1.1", "HTTP/2.0"]
+                  follow_redirects: true
+                  preferred_ip_protocol: "ip4"
+
+              ssh_banner:
+                prober: tcp
+                tcp:
+                  query_response:
+                    - expect: "^SSH-2.0-"
 ---
 apiVersion: argoproj.io/v1alpha1
 kind: Application
