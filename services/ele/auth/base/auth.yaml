@@ -42,7 +42,7 @@ spec:
     - from:
         - source:
             requestPrincipals: ["*"]
-    - to:
+      to:
         - operation:
             paths: ["/wordbook/health"]
 ---
