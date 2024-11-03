@@ -22,17 +22,17 @@ spec:
     - name: ele-backend-gateway
       kind: Gateway
       group: gateway.networking.k8s.io
-  action: DENY
+  action: ALLOW
   rules:
     - from:
         - source:
-            notRequestPrincipals: ["*"]
-            #- to:
-            #    - operation:
-            #        paths: ["/wordbook/health"]
-            #- to:
-            #    - operation:
-            #        methods: ["OPTIONS"]
+            requestPrincipals: ["*"]
+    - to:
+        - operation:
+            paths: ["/wordbook/health"]
+    - to:
+        - operation:
+            methods: ["OPTIONS"]
 ---
 apiVersion: security.istio.io/v1
 kind: AuthorizationPolicy
