@@ -42,6 +42,8 @@ spec:
     - from:
         - source:
             requestPrincipals: ["*"]
+    - to:
+        - notPaths: ["wordbook/health"]
 ---
 apiVersion: security.istio.io/v1beta1
 kind: PeerAuthentication
