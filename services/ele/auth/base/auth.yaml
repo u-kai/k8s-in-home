@@ -16,21 +16,6 @@ spec:
 apiVersion: security.istio.io/v1
 kind: AuthorizationPolicy
 metadata:
-  name: jwt-auth-policy-allow-options
-spec:
-  targetRefs:
-    - name: ele-backend-gateway
-      kind: Gateway
-      group: gateway.networking.k8s.io
-  action: ALLOW
-  rules:
-    - to:
-        - operation:
-            methods: ["OPTIONS"]
----
-apiVersion: security.istio.io/v1
-kind: AuthorizationPolicy
-metadata:
   name: jwt-auth-policy-allow-requests
 spec:
   targetRefs:
@@ -42,9 +27,12 @@ spec:
     - from:
         - source:
             requestPrincipals: ["*"]
-      to:
+    - to:
         - operation:
             paths: ["/wordbook/health"]
+    - to:
+        - operation:
+            methods: ["OPTIONS"]
 ---
 apiVersion: security.istio.io/v1beta1
 kind: PeerAuthentication
