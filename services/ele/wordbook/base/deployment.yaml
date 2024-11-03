@@ -40,11 +40,11 @@ metadata:
 spec:
   selector:
     matchLabels:
-      env: prod
       app: wordbook
   template:
     metadata:
       labels:
+        env: prod
         app: wordbook
         auth: required
     spec:
