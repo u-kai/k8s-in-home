@@ -34,6 +34,21 @@ spec:
         - operation:
             methods: ["OPTIONS"]
 ---
+apiVersion: security.istio.io/v1
+kind: AuthorizationPolicy
+metadata:
+  name: jwt-auth-policy-audit-requests
+spec:
+  targetRefs:
+    - name: ele-backend-gateway
+      kind: Gateway
+      group: gateway.networking.k8s.io
+  action: AUDIT
+  rules:
+    - from:
+        - source:
+            requestPrincipals: ["*"]
+---
 apiVersion: security.istio.io/v1beta1
 kind: PeerAuthentication
 metadata:

@@ -8,6 +8,11 @@ kind: AuthorizationPolicy
 metadata:
   name: jwt-auth-policy-allow-requests
 ---
+apiVersion: security.istio.io/v1
+kind: AuthorizationPolicy
+metadata:
+  name: jwt-auth-policy-audit-requests
+---
 apiVersion: security.istio.io/v1beta1
 kind: PeerAuthentication
 metadata:
