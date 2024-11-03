@@ -52,6 +52,7 @@ spec:
   template:
     metadata:
       labels:
+        env: prod
         app: translate
     spec:
       containers:
