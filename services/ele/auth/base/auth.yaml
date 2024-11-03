@@ -27,9 +27,9 @@ spec:
     - from:
         - source:
             requestPrincipals: ["*"]
-    - to:
+      to:
         - operation:
-            paths: ["/wordbook/health"]
+            notPaths: ["/wordbook/health"]
     - to:
         - operation:
             methods: ["OPTIONS"]
