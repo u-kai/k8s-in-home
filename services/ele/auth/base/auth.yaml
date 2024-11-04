@@ -30,6 +30,10 @@ spec:
     - to:
         - operation:
             paths: ["/wordbook/health"]
+            methods: ["GET"]
+        - operation:
+            paths: ["/translate/health"]
+            methods: ["GET"]
     - to:
         - operation:
             methods: ["OPTIONS"]
