@@ -45,9 +45,9 @@ spec:
               container.image.repository = "docker.io/istio/pilot" or
               container.image.repository = "quay.io/metallb/controller" or
               container.image.repository = "oci.external-secrets.io/external-secrets/external-secrets" or
-              container.image.repository = "registry.k8s.io/metrics-server/metrics-server"
-              container.image.repository = "quay.io/kiali/kiali-operator"
-              )
+              container.image.repository = "registry.k8s.io/metrics-server/metrics-server" or
+              container.image.repository = "quay.io/kiali/kiali-operator")
+
             - list: user_known_packet_socket_binaries
               items: ["bfdd","speaker"]
 ---
