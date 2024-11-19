@@ -47,7 +47,8 @@ spec:
                   container.image.repository = "quay.io/metallb/controller" or
                   container.image.repository = "oci.external-secrets.io/external-secrets/external-secrets" or
                   container.image.repository = "registry.k8s.io/metrics-server/metrics-server" or
-                  container.image.repository = "quay.io/kiali/kiali-operator"
+                  container.image.repository = "quay.io/kiali/kiali-operator" or
+                  container.image.repository = "ghcr.io/dexidp/dex"
                 )
 
             - list: user_known_packet_socket_binaries
