@@ -48,7 +48,9 @@ spec:
                   container.image.repository = "oci.external-secrets.io/external-secrets/external-secrets" or
                   container.image.repository = "registry.k8s.io/metrics-server/metrics-server" or
                   container.image.repository = "quay.io/kiali/kiali-operator" or
-                  container.image.repository = "ghcr.io/dexidp/dex"
+                  container.image.repository = "ghcr.io/dexidp/dex" or
+                  container.image.repository = "docker.io/kubernetesui/dashboard" or
+                  container.image.repository = "docker.io/kubernetesui/metrics-scraper"
                 )
 
             - list: user_known_packet_socket_binaries
