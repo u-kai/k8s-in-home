@@ -22,30 +22,30 @@ spec:
   helm:
     parameters:
 ---
-apiVersion: argoproj.io/v1alpha1
-kind: Application
-metadata:
-  name: cilium-resources
-  namespace: argocd
-  labels:
-    app: cilium-resources
-    environment: all
-spec:
-  project: default
-  source:
-    path: argocd/apps/infra/resources/cilium
-    repoURL: https://github.com/u-kai/k8s-in-home.git
-    targetRevision: main
-  destination:
-    server: https://kubernetes.default.svc
-    namespace: kube-system
-  syncPolicy:
-    automated:
-      prune: true
-      selfHeal: true
-    retry:
-      limit: 5
-      backoff:
-        duration: 5s
-        factor: 2
-        maxDuration: 3m
+#apiVersion: argoproj.io/v1alpha1
+#kind: Application
+#metadata:
+#  name: cilium-resources
+#  namespace: argocd
+#  labels:
+#    app: cilium-resources
+#    environment: all
+#spec:
+#  project: default
+#  source:
+#    path: argocd/apps/infra/resources/cilium
+#    repoURL: https://github.com/u-kai/k8s-in-home.git
+#    targetRevision: main
+#  destination:
+#    server: https://kubernetes.default.svc
+#    namespace: kube-system
+#  syncPolicy:
+#    automated:
+#      prune: true
+#      selfHeal: true
+#    retry:
+#      limit: 5
+#      backoff:
+#        duration: 5s
+#        factor: 2
+#        maxDuration: 3m
