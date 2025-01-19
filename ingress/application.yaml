@@ -17,5 +17,5 @@ spec:
       selfHeal: true
   source:
     repoURL: https://kubernetes.github.io/ingress-nginx
-    targetRevision: 4.11.2
+    targetRevision: 4.12.0
     chart: ingress-nginx
