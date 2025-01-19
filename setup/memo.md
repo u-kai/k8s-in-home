@@ -22,3 +22,5 @@ sudo systemctl restart containerd
 8. Create argocd application using app-of-apps pattern
 
 kubectl -n kube-system patch configmap kube-proxy -p '{"data":{"mode":"none"}}'
+
+~/.kube 配下に config.eksctl.lock とか kubens を消すと no host route 出なくなった

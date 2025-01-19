@@ -14,6 +14,7 @@ helm install external-secrets \
     -n external-secrets \
     --create-namespace \
 
+kubectl create ns argocd
 ## create secrets for argocd repository
 kubectl create secret generic awssm-secret -n argocd \
     --from-file=secret=aws-secret \
@@ -27,6 +28,5 @@ helm repo add argo https://argoproj.github.io/argo-helm
 
 helm install argocd argo/argo-cd \
   --namespace argocd \
-  --create-namespace \
   -f setup/argocd-values.yaml
 
