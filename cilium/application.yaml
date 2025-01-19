@@ -24,6 +24,8 @@ spec:
       l2announcements:
         enabled: true
       kubeProxyReplacement: "true"
+      externalIPs:
+        enabled: true
       ipam:
         operator:
           clusterPoolIPv4PodCIDRList: ["10.244.0.0/16"]
