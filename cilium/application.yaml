@@ -21,6 +21,8 @@ spec:
       selfHeal: true
   helm:
     values: |
+      l2announcements:
+        enabled: true
       ipam:
         operator:
           clusterPoolIPv4PodCIDRList: ["10.244.0.0/16"]
