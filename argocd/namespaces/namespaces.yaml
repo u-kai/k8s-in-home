@@ -74,37 +74,9 @@ metadata:
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: metallb-system
-  labels:
-    name: metallb-system
----
-apiVersion: v1
-kind: Namespace
-metadata:
   name: external-secrets
   labels:
     name: external-secrets
----
-apiVersion: v1
-kind: Namespace
-metadata:
-  name: tekton-pipelines
-  labels:
-    name: tekton-pipelines
----
-apiVersion: v1
-kind: Namespace
-metadata:
-  name: tekton-pipelines-resolvers
-  labels:
-    name: tekton-pipelines-resolvers
----
-apiVersion: v1
-kind: Namespace
-metadata:
-  name: tekton-dashboard
-  labels:
-    name: tekton-dashboard
 ---
 apiVersion: v1
 kind: Namespace

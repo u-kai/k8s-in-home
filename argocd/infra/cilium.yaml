@@ -1,52 +1,51 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: metallb
+  name: cilium
   namespace: argocd
   labels:
-    app: metallb
+    app: cilium
     environment: all
 spec:
   project: default
   source:
-    repoURL: https://metallb.github.io/metallb
-    targetRevision: 0.14.8
-    chart: metallb
-    helm:
-      values: |
-        prometheus:
-          # default is 7472
-          metricsPort: 7471
-        speaker:
-          memberlist:
-            # default is 7946
-            mlBindPort: 7947
+    repoURL: https://helm.cilium.io/
+    targetRevision: 1.15.0
+    chart: cilium
   destination:
     server: https://kubernetes.default.svc
-    namespace: metallb-system
+    namespace: kube-system
   syncPolicy:
     automated:
       prune: true
       selfHeal: true
+  helm:
+    parameters:
 ---
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: metallb-resources
+  name: cilium-resources
   namespace: argocd
   labels:
-    app: metallb
+    app: cilium-resources
     environment: all
 spec:
   project: default
   source:
-    path: argocd/apps/infra/resources/metallb
+    path: argocd/infra/resources/cilium
     repoURL: https://github.com/u-kai/k8s-in-home.git
     targetRevision: main
   destination:
     server: https://kubernetes.default.svc
-    namespace: metallb-system
+    namespace: kube-system
   syncPolicy:
     automated:
       prune: true
       selfHeal: true
+    retry:
+      limit: 5
+      backoff:
+        duration: 5s
+        factor: 2
+        maxDuration: 3m
