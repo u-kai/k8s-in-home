@@ -1,0 +1,30 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: metallb
+  namespace: argocd
+  labels:
+    app: metallb
+    environment: all
+spec:
+  project: default
+  source:
+    repoURL: https://metallb.github.io/metallb
+    targetRevision: 0.14.8
+    chart: metallb
+    helm:
+      values: |
+        #prometheus:
+        #  # default is 7472
+        #  #metricsPort: 7471
+        #speaker:
+        #  memberlist:
+        #    # default is 7946
+        #    mlBindPort: 7947
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: metallb-system
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true

@@ -20,3 +20,5 @@ sudo systemctl restart containerd
 6. Create argocd using helm
 7. Register github repository to argocd
 8. Create argocd application using app-of-apps pattern
+
+kubectl -n kube-system patch configmap kube-proxy -p '{"data":{"mode":"none"}}'
