@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: external-secrets-app-of-app
+  name: external-secrets-app
   namespace: argocd
   labels:
     app: external-secrets
