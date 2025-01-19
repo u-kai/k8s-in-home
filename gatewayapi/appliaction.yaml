@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: gateway-app-of-app
+  name: gateawayapi-crd-install
   namespace: argocd
   labels:
     app: gateway
