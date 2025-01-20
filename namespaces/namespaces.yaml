@@ -4,6 +4,7 @@ metadata:
   name: argocd
   labels:
     name: argocd
+    gateway-api: default
 ---
 apiVersion: v1
 kind: Namespace
