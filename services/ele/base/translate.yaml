@@ -38,6 +38,8 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: translate-deployment
+  labels:
+    app: translate
 spec:
   selector:
     matchLabels:
