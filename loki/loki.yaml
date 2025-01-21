@@ -98,25 +98,3 @@ spec:
     automated:
       prune: true
       selfHeal: true
----
-apiVersion: argoproj.io/v1alpha1
-kind: Application
-metadata:
-  name: loki-resources
-  namespace: argocd
-  labels:
-    app: loki-resources
-    environment: all
-spec:
-  project: default
-  source:
-    path: argocd/apps/infra/resources/loki
-    repoURL: https://github.com/u-kai/k8s-in-home.git
-    targetRevision: main
-  destination:
-    server: https://kubernetes.default.svc
-    namespace: logging
-  syncPolicy:
-    automated:
-      prune: true
-      selfHeal: true

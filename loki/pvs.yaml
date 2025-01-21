@@ -40,25 +40,4 @@ spec:
     server: 192.168.3.28
     path: /media/pi/ex-ssd/loki2
 ---
-apiVersion: external-secrets.io/v1beta1
-kind: ExternalSecret
-metadata:
-  name: loki-aws-credentials
-  namespace: logging
-spec:
-  refreshInterval: 24h # SecretStoreプロバイダーから再度値を読み込む時間を指定
-  secretStoreRef:
-    name: secret-store
-    kind: SecretStore
-  target:
-    name: loki-aws-credentials
-    creationPolicy: Owner
-  data: # 取得する秘匿情報を指定する
-    - secretKey: aws_access_key_id
-      remoteRef:
-        key: loki-aws-credentials
-        property: keyId
-    - secretKey: aws_secret_access_key
-      remoteRef:
-        key: loki-aws-credentials
-        property: secret
+
