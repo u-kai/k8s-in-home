@@ -1,0 +1,11 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ele-front-deployment
+spec:
+  replicas: 3
+  template:
+    spec:
+      containers:
+        - name: ele-front
+          image: uk1012/ele-front:09b40627f16029ef73fc9887416128699383664f

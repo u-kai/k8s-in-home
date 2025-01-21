@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: ele-front-prod
+  name: ele-prod
   namespace: argocd
   labels:
     app: ele-front
@@ -13,85 +13,7 @@ spec:
   project: default
   source:
     kustomize:
-    path: services/ele/front/overlays/prod
-    repoURL: https://github.com/u-kai/k8s-in-home.git
-    targetRevision: main
-  syncPolicy:
-    automated:
-      prune: true
-      selfHeal: true
-    syncOptions:
-      - CreateNamespace=true
-      - ApplyOutOfSyncOnly=true
----
-apiVersion: argoproj.io/v1alpha1
-kind: Application
-metadata:
-  name: translate
-  namespace: argocd
-  labels:
-    app: translate
-    environment: prod
-spec:
-  destination:
-    namespace: prod
-    server: https://kubernetes.default.svc
-  project: default
-  source:
-    kustomize:
-    path: services/ele/translate/overlays/prod
-    repoURL: https://github.com/u-kai/k8s-in-home.git
-    targetRevision: main
-  syncPolicy:
-    automated:
-      prune: true
-      selfHeal: true
-    syncOptions:
-      - CreateNamespace=true
-      - ApplyOutOfSyncOnly=true
----
-apiVersion: argoproj.io/v1alpha1
-kind: Application
-metadata:
-  name: wordbook
-  namespace: argocd
-  labels:
-    app: wordbook
-    environment: prod
-spec:
-  destination:
-    namespace: prod
-    server: https://kubernetes.default.svc
-  project: default
-  source:
-    kustomize:
-    path: services/ele/wordbook/overlays/prod
-    repoURL: https://github.com/u-kai/k8s-in-home.git
-    targetRevision: main
-  syncPolicy:
-    automated:
-      prune: true
-      selfHeal: true
-    syncOptions:
-      - CreateNamespace=true
-      - ApplyOutOfSyncOnly=true
----
-apiVersion: argoproj.io/v1alpha1
-kind: Application
-metadata:
-  name: ele-config
-  namespace: argocd
-  labels:
-    app: ele-config
-    environment: prod
-spec:
-  destination:
-    namespace: prod
-    server: https://kubernetes.default.svc
-  project: default
-  source:
-    kustomize:
-    path: services/ele/config/overlays/prod
+    path: services/ele/overlays/prod
     repoURL: https://github.com/u-kai/k8s-in-home.git
     targetRevision: main
   syncPolicy:
@@ -121,29 +43,3 @@ spec:
           secretAccessKeySecretRef:
             name: awssm-secret
             key: secret
----
-apiVersion: argoproj.io/v1alpha1
-kind: Application
-metadata:
-  name: ele-auth
-  namespace: argocd
-  labels:
-    app: ele-auth
-    environment: prod
-spec:
-  destination:
-    namespace: prod
-    server: https://kubernetes.default.svc
-  project: default
-  source:
-    kustomize:
-    path: services/ele/auth/overlays/prod
-    repoURL: https://github.com/u-kai/k8s-in-home.git
-    targetRevision: main
-  syncPolicy:
-    automated:
-      prune: true
-      selfHeal: true
-    syncOptions:
-      - CreateNamespace=true
-      - ApplyOutOfSyncOnly=true

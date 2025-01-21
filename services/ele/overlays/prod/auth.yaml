@@ -1,0 +1,69 @@
+apiVersion: security.istio.io/v1
+kind: AuthorizationPolicy
+metadata:
+  name: wordbook-service-policy
+spec:
+  targetRefs:
+    - name: wordbook-service
+      kind: Service
+      group: core
+  action: ALLOW
+  rules:
+    - from:
+        - source:
+            requestPrincipals: ["*"]
+    - to:
+        - operation:
+            paths: ["/translate/health"]
+            methods: ["GET"]
+    - to:
+        - operation:
+            methods: ["OPTIONS"]
+    - from:
+        - source:
+            namespaces: ["prod"]
+---
+apiVersion: security.istio.io/v1
+kind: AuthorizationPolicy
+metadata:
+  name: translate-service-policy
+spec:
+  targetRefs:
+    - name: translate-service
+      kind: Service
+      group: core
+  action: ALLOW
+  rules:
+    - from:
+        - source:
+            requestPrincipals: ["*"]
+    - to:
+        - operation:
+            paths: ["/translate/health"]
+            methods: ["GET"]
+    - to:
+        - operation:
+            methods: ["OPTIONS"]
+    - from:
+        - source:
+            namespaces: ["prod"]
+---
+apiVersion: security.istio.io/v1beta1
+kind: PeerAuthentication
+metadata:
+  name: mtls-strict
+spec:
+  mtls:
+    mode: STRICT
+
+---
+apiVersion: security.istio.io/v1beta1
+kind: PeerAuthentication
+metadata:
+  name: mtls-permissive
+spec:
+  selector:
+    matchLabels:
+      access: permissive
+  mtls:
+    mode: PERMISSIVE
