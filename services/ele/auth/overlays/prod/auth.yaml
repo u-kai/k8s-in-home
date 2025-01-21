@@ -2,22 +2,18 @@ apiVersion: security.istio.io/v1
 kind: AuthorizationPolicy
 metadata:
   name: wordbook-service-policy
-  namespace: prod
 ---
 apiVersion: security.istio.io/v1
 kind: AuthorizationPolicy
 metadata:
   name: translate-service-policy
-  namespace: prod
 ---
 apiVersion: security.istio.io/v1beta1
 kind: PeerAuthentication
 metadata:
   name: mtls-strict
-  namespace: prod
 ---
 apiVersion: security.istio.io/v1beta1
 kind: PeerAuthentication
 metadata:
   name: mtls-permissive
-  namespace: prod
