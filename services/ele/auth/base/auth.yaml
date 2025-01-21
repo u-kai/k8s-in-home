@@ -6,6 +6,7 @@ spec:
   targetRefs:
     - name: wordbook-service
       kind: Service
+      group: core
   action: ALLOW
   rules:
     - from:
@@ -30,6 +31,7 @@ spec:
   targetRefs:
     - name: translate-service
       kind: Service
+      group: core
   action: ALLOW
   rules:
     - from:
