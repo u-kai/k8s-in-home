@@ -1,24 +1,27 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: ele-gateway
+  name: falco-app-of-app
   namespace: argocd
   labels:
-    app: ele-gateway
-    environment: ele-all
+    app: falco
+    environment: all
 spec:
-  destination:
-    namespace: istio-gateway
-    server: https://kubernetes.default.svc
   project: default
   source:
-    path: services/ele/gateway/
     repoURL: https://github.com/u-kai/k8s-in-home.git
+    path: platforms/falco
     targetRevision: main
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: argocd
   syncPolicy:
     automated:
       prune: true
       selfHeal: true
-    syncOptions:
-      - CreateNamespace=true
-      - ApplyOutOfSyncOnly=true
+    retry:
+      limit: 5
+      backoff:
+        duration: 5s
+        factor: 2
+        maxDuration: 3m

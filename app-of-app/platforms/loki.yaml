@@ -1,16 +1,16 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: istio-app-of-app
+  name: loki-app-of-app
   namespace: argocd
   labels:
-    app: istio
+    app: loki
     environment: all
 spec:
   project: default
   source:
     repoURL: https://github.com/u-kai/k8s-in-home.git
-    path: istio
+    path: platforms/loki
     targetRevision: main
   destination:
     server: https://kubernetes.default.svc

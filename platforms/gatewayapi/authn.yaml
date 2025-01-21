@@ -1,0 +1,14 @@
+apiVersion: security.istio.io/v1
+kind: RequestAuthentication
+metadata:
+  name: jwt-request-auth
+  namespace: default
+spec:
+  targetRefs:
+    - name: default
+      kind: Gateway
+      group: gateway.networking.k8s.io
+  jwtRules:
+    - issuer: "https://cognito-idp.ap-northeast-1.amazonaws.com/ap-northeast-1_OlP3TVnbI"
+      jwksUri: "https://cognito-idp.ap-northeast-1.amazonaws.com/ap-northeast-1_OlP3TVnbI/.well-known/jwks.json"
+      forwardOriginalToken: true

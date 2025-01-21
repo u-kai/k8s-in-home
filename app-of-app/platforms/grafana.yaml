@@ -1,16 +1,16 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: external-secrets-app-of-app
+  name: grafana-app-of-app
   namespace: argocd
   labels:
-    app: external-secrets
+    app: argocd
     environment: all
 spec:
   project: default
   source:
     repoURL: https://github.com/u-kai/k8s-in-home.git
-    path: external-secrets
+    path: platforms/grafana
     targetRevision: main
   destination:
     server: https://kubernetes.default.svc

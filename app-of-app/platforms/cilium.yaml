@@ -1,21 +1,20 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: gatewayapi-crd-install
+  name: cilium-app-of-app
   namespace: argocd
   labels:
-    app: gateway
+    app: cilium
     environment: all
 spec:
   project: default
   source:
-    kustomize:
     repoURL: https://github.com/u-kai/k8s-in-home.git
-    path: gatewayapi/crd-install
+    path: platforms/cilium
     targetRevision: main
   destination:
     server: https://kubernetes.default.svc
-    namespace: default
+    namespace: argocd
   syncPolicy:
     automated:
       prune: true

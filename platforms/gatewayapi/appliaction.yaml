@@ -1,20 +1,21 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: ingress-app-of-app
+  name: gatewayapi-crd-install
   namespace: argocd
   labels:
-    app: ingress
+    app: gateway
     environment: all
 spec:
   project: default
   source:
+    kustomize:
     repoURL: https://github.com/u-kai/k8s-in-home.git
-    path: ingress
+    path: platforms/gatewayapi/crd-install
     targetRevision: main
   destination:
     server: https://kubernetes.default.svc
-    namespace: argocd
+    namespace: default
   syncPolicy:
     automated:
       prune: true

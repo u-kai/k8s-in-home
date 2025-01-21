@@ -1,16 +1,16 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: loki-app-of-app
+  name: ingress-app-of-app
   namespace: argocd
   labels:
-    app: loki
+    app: ingress
     environment: all
 spec:
   project: default
   source:
     repoURL: https://github.com/u-kai/k8s-in-home.git
-    path: loki
+    path: platforms/ingress
     targetRevision: main
   destination:
     server: https://kubernetes.default.svc

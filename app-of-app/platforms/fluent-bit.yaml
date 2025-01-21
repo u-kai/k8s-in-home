@@ -1,16 +1,16 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: argocd-app-of-app
+  name: fluent-bit-app-of-app
   namespace: argocd
   labels:
-    app: argocd
+    app: fluent-bit
     environment: all
 spec:
   project: default
   source:
     repoURL: https://github.com/u-kai/k8s-in-home.git
-    path: argocd
+    path: platforms/fluent-bit
     targetRevision: main
   destination:
     server: https://kubernetes.default.svc

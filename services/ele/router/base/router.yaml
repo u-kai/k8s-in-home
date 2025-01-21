@@ -6,8 +6,8 @@ spec:
   hostnames:
     - "api.kaiandkai.com"
   parentRefs:
-    - name: ele-backend-gateway
-      namespace: prod
+    - name: default
+      namespace: default
   rules:
     - matches:
         - path:
@@ -32,8 +32,8 @@ spec:
   hostnames:
     - "www.kaiandkai.com"
   parentRefs:
-    - name: ele-frontend-gateway
-      namespace: prod
+    - name: default
+      namespace: default
   rules:
     - matches:
         - path:

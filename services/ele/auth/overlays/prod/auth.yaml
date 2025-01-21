@@ -1,24 +1,23 @@
 apiVersion: security.istio.io/v1
-kind: RequestAuthentication
+kind: AuthorizationPolicy
 metadata:
-  name: jwt-request-auth
+  name: wordbook-service-policy
+  namespace: prod
 ---
 apiVersion: security.istio.io/v1
 kind: AuthorizationPolicy
 metadata:
-  name: jwt-auth-policy-allow-requests
----
-apiVersion: security.istio.io/v1
-kind: AuthorizationPolicy
-metadata:
-  name: jwt-auth-policy-audit-requests
+  name: translate-service-policy
+  namespace: prod
 ---
 apiVersion: security.istio.io/v1beta1
 kind: PeerAuthentication
 metadata:
   name: mtls-strict
+  namespace: prod
 ---
 apiVersion: security.istio.io/v1beta1
 kind: PeerAuthentication
 metadata:
   name: mtls-permissive
+  namespace: prod

@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: metallb-app-of-app
+  name: prometheus-app-of-app
   namespace: argocd
   labels:
     app: argocd
@@ -10,7 +10,7 @@ spec:
   project: default
   source:
     repoURL: https://github.com/u-kai/k8s-in-home.git
-    path: metallb
+    path: platforms/prometheus
     targetRevision: main
   destination:
     server: https://kubernetes.default.svc

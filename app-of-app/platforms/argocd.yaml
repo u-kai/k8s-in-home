@@ -1,16 +1,16 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: cilium-app-of-app
+  name: argocd-app-of-app
   namespace: argocd
   labels:
-    app: cilium
+    app: argocd
     environment: all
 spec:
   project: default
   source:
     repoURL: https://github.com/u-kai/k8s-in-home.git
-    path: cilium
+    path: platforms/argocd
     targetRevision: main
   destination:
     server: https://kubernetes.default.svc
