@@ -10,7 +10,7 @@ spec:
   project: default
   source:
     repoURL: https://github.com/u-kai/k8s-in-home.git
-    path: app-of-app
+    path: app-of-app/platforms
     targetRevision: main
   destination:
     server: https://kubernetes.default.svc
