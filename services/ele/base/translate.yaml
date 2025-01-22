@@ -39,7 +39,9 @@ kind: Deployment
 metadata:
   name: translate-deployment
   labels:
+    service: ele
     app: translate
+
 spec:
   selector:
     matchLabels:

@@ -1,4 +1,17 @@
 apiVersion: security.istio.io/v1
+kind: RequestAuthentication
+metadata:
+  name: jwt-request-auth
+spec:
+  selector:
+    matchLabels:
+      service: ele
+  jwtRules:
+    - issuer: "https://cognito-idp.ap-northeast-1.amazonaws.com/ap-northeast-1_OlP3TVnbI"
+      jwksUri: "https://cognito-idp.ap-northeast-1.amazonaws.com/ap-northeast-1_OlP3TVnbI/.well-known/jwks.json"
+      forwardOriginalToken: true
+---
+apiVersion: security.istio.io/v1
 kind: AuthorizationPolicy
 metadata:
   name: wordbook-policy

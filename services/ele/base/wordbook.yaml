@@ -38,6 +38,7 @@ kind: Deployment
 metadata:
   name: wordbook-deployment
   labels:
+    service: ele
     app: wordbook
 spec:
   selector:
