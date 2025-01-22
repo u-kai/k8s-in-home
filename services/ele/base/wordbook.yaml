@@ -47,6 +47,7 @@ spec:
   template:
     metadata:
       labels:
+        service: ele
         env: prod
         app: wordbook
         auth: required

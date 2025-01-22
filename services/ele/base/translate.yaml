@@ -49,6 +49,7 @@ spec:
   template:
     metadata:
       labels:
+        service: ele
         env: prod
         app: translate
     spec:
