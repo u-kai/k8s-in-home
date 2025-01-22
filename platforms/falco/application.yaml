@@ -50,7 +50,9 @@ spec:
                   container.image.repository = "quay.io/kiali/kiali-operator" or
                   container.image.repository = "ghcr.io/dexidp/dex" or
                   container.image.repository = "docker.io/kubernetesui/dashboard" or
-                  container.image.repository = "docker.io/kubernetesui/metrics-scraper"
+                  container.image.repository = "docker.io/kubernetesui/metrics-scraper" or
+                  container.image.repository = "registry.k8s.io/ingress-nginx/controller" or
+                  container.image.repository = "registry.k8s.io/kube-state-metrics/kube-state-metrics"
                 )
 
             - list: user_known_packet_socket_binaries
