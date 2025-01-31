@@ -21,7 +21,7 @@ spec:
         deploymentMode: SingleBinary
         loki:
           commonConfig:
-            replication_factor: 2
+            replication_factor: 1
           auth_enabled: false
           tracing:
             enabled: true
@@ -49,7 +49,7 @@ spec:
         chunksCache:
           allocatedMemory: 500
           singleBinary:
-            replicas: 2
+            replicas: 1
             extraArgs:
               - "--config.expand-env=true"
           extraEnv:
@@ -65,7 +65,7 @@ spec:
                   key: aws_secret_access_key
 
         singleBinary:
-          replicas: 3 
+          replicas:  1
           extraArgs:
             - "--config.expand-env=true"
           extraEnv:
@@ -82,12 +82,11 @@ spec:
 
 
         backend:
-          replicas: 0
+          affinity:{}
         write:
-          replicas: 0
+          affinity:{}
         read:
-          replicas:
-            0
+          affinity:{}
         minio:
           enabled: false
 
