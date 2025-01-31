@@ -25,8 +25,8 @@ spec:
           service: |
             [SERVICE]
                 Daemon Off
-                Flush {{ .Values.flush }}
-                Log_Level {{ .Values.logLevel }}
+                Flush 10
+                Log_Level info
                 Parsers_File /fluent-bit/etc/parsers.conf
                 Parsers_File /fluent-bit/etc/conf/custom_parsers.conf
                 HTTP_Server On
