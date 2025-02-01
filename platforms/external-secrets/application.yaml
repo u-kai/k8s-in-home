@@ -11,7 +11,7 @@ spec:
   source:
     repoURL: https://charts.external-secrets.io
     chart: external-secrets
-    targetRevision: 0.12.1
+    targetRevision: 0.13.0
   destination:
     server: https://kubernetes.default.svc
     namespace: argocd
