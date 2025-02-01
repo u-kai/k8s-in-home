@@ -8,7 +8,7 @@ metadata:
     environment: all
 spec:
   project: default
-  source:
+  sources:
     - repoURL: https://charts.external-secrets.io
       chart: external-secrets
       targetRevision: 0.13.0
