@@ -15,7 +15,10 @@ spec:
       helm:
         valueFiles:
           - $values/platforms/external-secrets/values.yaml
-    - repoURL: https://github.com/u-kai/k8s-in-home
+        values:
+          fullnameOverride: "external-secrets-app"
+
+    - repoURL: https://github.com/u-kai/k8s-in-home.git
       targetRevision: main
       ref: values
 
