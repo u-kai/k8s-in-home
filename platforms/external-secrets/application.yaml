@@ -12,6 +12,9 @@ spec:
     repoURL: https://charts.external-secrets.io
     chart: external-secrets
     targetRevision: 0.13.0
+    helm:
+      valueFiles:
+        - platforms/external-secrets/values.yaml
   destination:
     server: https://kubernetes.default.svc
     namespace: external-secrets
