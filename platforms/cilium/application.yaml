@@ -8,10 +8,17 @@ metadata:
     environment: all
 spec:
   project: default
-  source:
-    repoURL: https://helm.cilium.io/
-    targetRevision: 1.16.5
-    chart: cilium
+  sources:
+    - repoURL: https://helm.cilium.io/
+      targetRevision: 1.16.5
+      chart: cilium
+      helm:
+        valueFiles:
+          - $values/platforms/cilium/values.yaml
+
+    - repoURL: https://github.com/u-kai/k8s-in-home.git
+      targetRevision: main
+      ref: values
   destination:
     server: https://kubernetes.default.svc
     namespace: kube-system
@@ -19,15 +26,3 @@ spec:
     automated:
       prune: true
       selfHeal: true
-  helm:
-    values: |
-      #k8sServiceHost: 192.168.3.90
-      #k8sServicePort: 6443
-      #l2announcements:
-      #  enabled: true
-      #kubeProxyReplacement: "true"
-      #externalIPs:
-      #  enabled: true
-      ipam:
-        operator:
-          clusterPoolIPv4PodCIDRList: ["10.244.0.0/16"]
