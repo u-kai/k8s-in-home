@@ -25,13 +25,6 @@ spec:
           tracing:
             enabled: true
           schemaConfig:
-            pattern_ingester:
-              enabled: true
-            limits_config:
-              allow_structured_metadata: true
-              volume_enabled: true
-            ruler:
-              enable_api: true
             configs:
               - from: "2025-01-01"
                 store: tsdb
@@ -41,6 +34,13 @@ spec:
                   prefix: loki_index_
                   period: 24h
 
+          pattern_ingester:
+            enabled: true
+          limits_config:
+            allow_structured_metadata: true
+            volume_enabled: true
+          ruler:
+            enable_api: true
           storage:
             type: "s3"
             bucketNames:
