@@ -15,17 +15,14 @@ spec:
     automated:
       prune: true
       selfHeal: true
-  source:
-    repoURL: https://kubernetes.github.io/ingress-nginx
-    targetRevision: 4.12.0
-    chart: ingress-nginx
-  helm:
-    values: |
-      controller:
-        replicaCount: 2
-        metrics:
-          enabled: true
-        ingressClassResource:
-          annotations:
-            ingressclass.kubernetes.io/is-default-class: "true"
-            ingressclass.kubernetes.io/ssl-redirect: "false"
+  sources:
+    - repoURL: https://kubernetes.github.io/ingress-nginx
+      targetRevision: 4.12.0
+      chart: ingress-nginx
+      helm:
+        valueFiles:
+          - $values/platforms/ingress/values.yaml
+
+    - repoURL: https://github.com/u-kai/k8s-in-home.git
+      targetRevision: main
+      ref: values

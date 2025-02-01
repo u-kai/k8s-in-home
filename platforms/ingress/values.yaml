@@ -1,0 +1,8 @@
+controller:
+  replicaCount: 2
+  metrics:
+    enabled: true
+  ingressClassResource:
+    annotations:
+      ingressclass.kubernetes.io/is-default-class: "true"
+      ingressclass.kubernetes.io/ssl-redirect: "false"
