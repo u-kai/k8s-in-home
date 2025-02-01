@@ -112,6 +112,7 @@ spec:
           volumeMounts:
             - name: wordbook-db-pv
               mountPath: /var/lib/mysql
+              readOnly: false
             - name: initdb-script
               mountPath: /docker-entrypoint-initdb.d
       volumes:
