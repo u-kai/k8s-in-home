@@ -8,30 +8,16 @@ metadata:
     environment: all
 spec:
   project: default
-  source:
-    repoURL: https://argoproj.github.io/argo-helm
-    targetRevision: 7.6.8
-    chart: argo-cd
-    helm:
-      values: |
-        redis-ha:
-          enabled: true
-
-        controller:
-          replicas: 1
-
-        server:
-          autoscaling:
-            enabled: true
-            minReplicas: 2
-
-        repoServer:
-          autoscaling:
-            enabled: true
-            minReplicas: 2
-
-        applicationSet:
-          replicas: 2
+  sources:
+    - repoURL: https://argoproj.github.io/argo-helm
+      targetRevision: 7.6.8
+      chart: argo-cd
+      helm:
+        valueFiles:
+          - $values/platforms/argocd/values.yaml
+    - repoURL: https://github.com/u-kai/k8s-in-home.git
+      targetRevision: main
+      ref: values
   destination:
     server: https://kubernetes.default.svc
     namespace: argocd
