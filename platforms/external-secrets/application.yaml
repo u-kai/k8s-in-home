@@ -9,12 +9,16 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://charts.external-secrets.io
-    chart: external-secrets
-    targetRevision: 0.13.0
-    helm:
-      valueFiles:
-        - platforms/external-secrets/values.yaml
+    - repoURL: https://charts.external-secrets.io
+      chart: external-secrets
+      targetRevision: 0.13.0
+      helm:
+        valueFiles:
+          - $values/platforms/external-secrets/values.yaml
+    - repoURL: https://github.com/u-kai/k8s-in-home
+      targetRevision: main
+      ref: values
+
   destination:
     server: https://kubernetes.default.svc
     namespace: external-secrets
