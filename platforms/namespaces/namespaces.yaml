@@ -102,3 +102,17 @@ metadata:
   name: metallb-system
   labels:
     name: metallb-system
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: jaeger
+  labels:
+    name: jaeger
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: cert-manager
+  labels:
+    name: cert-manager
