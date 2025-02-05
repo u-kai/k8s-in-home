@@ -15,45 +15,14 @@ spec:
     automated:
       prune: true
       selfHeal: true
-  source:
-    repoURL: https://falcosecurity.github.io/charts
-    targetRevision: 4.11.1
-    chart: falco
-    helm:
-      values: |
-        falcosidekick:
-          enabled: true
-          config:
-            existingSecret: slack-api-url
-            slack:
-              enabled: true
-          webui:
-            enabled: true
-          prometheusRules:
-            enabled: true
-        customRules:
-          rules-filter.yaml: |-
-            - macro: user_known_contact_k8s_api_server_activities
-              condition: |
-                container and (
-                  container.image.repository = "quay.io/kiali/kiali" or
-                  container.image.repository = "quay.io/argoproj/argocd" or
-                  container.image.repository = "docker.io/kiwigrid/k8s-sidecar" or
-                  container.image.repository = "cr.fluentbit.io/fluent/fluent-bit" or
-                  container.image.repository = "quay.io/frrouting/frr" or
-                  container.image.repository = "quay.io/prometheus/prometheus" or
-                  container.image.repository = "quay.io/metallb/speaker" or
-                  container.image.repository = "docker.io/istio/pilot" or
-                  container.image.repository = "quay.io/metallb/controller" or
-                  container.image.repository = "oci.external-secrets.io/external-secrets/external-secrets" or
-                  container.image.repository = "registry.k8s.io/metrics-server/metrics-server" or
-                  container.image.repository = "quay.io/kiali/kiali-operator" or
-                  container.image.repository = "ghcr.io/dexidp/dex" or
-                  container.image.repository = "docker.io/kubernetesui/dashboard" or
-                  container.image.repository = "docker.io/kubernetesui/metrics-scraper" or
-                  container.image.repository = "registry.k8s.io/ingress-nginx/controller" or
-                  container.image.repository = "registry.k8s.io/kube-state-metrics/kube-state-metrics"
-                )
+  sources:
+    - repoURL: https://falcosecurity.github.io/charts
+      targetRevision: 4.11.1
+      chart: falco
+      helm:
+        valueFiles:
+          - $values/platforms/external-secrets/values.yaml
 
-            - list: user_known_packet_socket_binaries
-              items: ["bfdd","speaker"]
+    - repoURL: https://github.com/u-kai/k8s-in-home.git
+      targetRevision: main
+      ref: values
