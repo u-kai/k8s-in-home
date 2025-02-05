@@ -21,7 +21,7 @@ spec:
       chart: falco
       helm:
         valueFiles:
-          - $values/platforms/external-secrets/values.yaml
+          - $values/platforms/falco/values.yaml
 
     - repoURL: https://github.com/u-kai/k8s-in-home.git
       targetRevision: main
