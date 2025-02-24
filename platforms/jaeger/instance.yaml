@@ -6,3 +6,4 @@ metadata:
 spec:
   ingress:
     ingressClassName: nginx
+    hosts: jaeger.example.com
