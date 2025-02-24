@@ -1,0 +1,7 @@
+meshConfig:
+  enableTracing: true
+  extensionProviders:
+    - name: jaeger
+      opentelemetry:
+        port: 4317
+        service: simplest-collector.observability.svc.cluster.local
