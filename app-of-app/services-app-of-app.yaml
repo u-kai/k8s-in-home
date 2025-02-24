@@ -1,20 +1,20 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: ele-prod-app-of-app
+  name: services-app-of-app
   namespace: argocd
   labels:
-    app: ele-prod-app-of-app
+    app: argocd
     environment: all
 spec:
   project: default
   source:
     repoURL: https://github.com/u-kai/k8s-in-home.git
-    path: app-of-app/services/ele/prod
+    path: app-of-app/services
     targetRevision: main
   destination:
     server: https://kubernetes.default.svc
-    namespace: prod
+    namespace: argocd
   syncPolicy:
     automated:
       prune: true
