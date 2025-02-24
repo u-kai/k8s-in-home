@@ -1,4 +1,6 @@
 meshConfig:
+  tracing:
+    sampling: 100
   defaultConfig:
     tracing: {}
   enableTracing: true
