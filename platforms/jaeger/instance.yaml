@@ -3,3 +3,6 @@ kind: Jaeger
 metadata:
   name: simplest
   namespace: observability
+spec:
+  ingress:
+    ingressClassName: nginx
