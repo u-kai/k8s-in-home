@@ -114,9 +114,9 @@ metadata:
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: jaeger
+  name: observability
   labels:
-    name: jaeger
+    name: observability
     istio-injection: enabled
 ---
 apiVersion: v1

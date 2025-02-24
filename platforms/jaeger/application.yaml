@@ -14,7 +14,7 @@ spec:
     chart: jaeger-operator
   destination:
     server: https://kubernetes.default.svc
-    namespace: jaeger
+    namespace: observability
   syncPolicy:
     automated:
       prune: true
