@@ -8,10 +8,16 @@ metadata:
     environment: all
 spec:
   project: default
-  source:
-    repoURL: https://jaegertracing.github.io/helm-charts
-    targetRevision: 2.57.0
-    chart: jaeger-operator
+  sources:
+    - repoURL: https://jaegertracing.github.io/helm-charts
+      targetRevision: 2.57.0
+      chart: jaeger-operator
+      helm:
+        valueFiles:
+          - $values/platforms/jaeger/values.yaml
+    - repoURL: https://github.com/u-kai/k8s-in-home.git
+      targetRevision: main
+      ref: values
   destination:
     server: https://kubernetes.default.svc
     namespace: observability
