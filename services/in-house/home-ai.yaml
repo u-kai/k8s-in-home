@@ -1,0 +1,57 @@
+apiVersion: external-secrets.io/v1beta1
+kind: ExternalSecret
+metadata:
+  name: openai-secret
+  namespace: in-house
+spec:
+  refreshInterval: 24h # SecretStoreプロバイダーから再度値を読み込む時間を指定
+  secretStoreRef:
+    name: secret-store
+    kind: SecretStore
+  target:
+    name: openai-api-key
+    creationPolicy: Owner
+  data: # 取得する秘匿情報を指定する
+    - secretKey: api-key
+      remoteRef:
+        key: translate-prod-openai-api-key
+        property: OPENAI_API_KEY
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: home-ai
+  namespace: in-house
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: home-ai
+  template:
+    metadata:
+      labels:
+        app: home-ai
+    spec:
+      containers:
+        - name: home-ai
+          image: uk1012/cai
+          env:
+            - name: OPENAI_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: openai-api-key
+                  key: OPENAI_API_KEY
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: home-ai
+  namespace: in-house
+spec:
+  type: LoadBalancer
+  selector:
+    app: home-ai
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8080

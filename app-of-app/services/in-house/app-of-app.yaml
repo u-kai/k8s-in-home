@@ -1,19 +1,17 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: ele-prod
+  name: in-house
   namespace: argocd
   labels:
-    app: ele-front
-    environment: prod
+    app: in-house
 spec:
   destination:
-    namespace: prod
+    namespace: in-house
     server: https://kubernetes.default.svc
   project: default
   source:
-    kustomize:
-    path: services/ele/overlays/prod
+    path: services/in-house
     repoURL: https://github.com/u-kai/k8s-in-home.git
     targetRevision: main
   syncPolicy:
