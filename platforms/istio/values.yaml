@@ -1,6 +1,8 @@
 meshConfig:
   tracing:
     sampling: 100
+    zipkin:
+      address: simplest-collector.observability.svc.cluster.local:9411
   defaultConfig:
     tracing: {}
   enableTracing: true
