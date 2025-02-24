@@ -39,8 +39,8 @@ spec:
             - name: OPENAI_API_KEY
               valueFrom:
                 secretKeyRef:
-                  name: openai-api-key
-                  key: OPENAI_API_KEY
+                  name: openai-secret
+                  key: api-key
 ---
 apiVersion: v1
 kind: Service
