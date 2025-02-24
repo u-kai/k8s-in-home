@@ -1,4 +1,6 @@
 meshConfig:
+  defaultConfig:
+    tracing: {}
   enableTracing: true
   extensionProviders:
     - name: jaeger
