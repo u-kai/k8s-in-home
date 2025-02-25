@@ -30,7 +30,8 @@ customRules:
           container.image.repository = "docker.io/kubernetesui/metrics-scraper" or
           container.image.repository = "registry.k8s.io/ingress-nginx/controller" or
           container.image.repository = "registry.k8s.io/kube-state-metrics/kube-state-metrics" or
-          container.image.repository = "quay.io/jetstack/cert-manager-controller"
+          container.image.repository = "quay.io/jetstack/cert-manager-controller" or
+          container.image.repository = "docker.io/jaegertracing/jaeger-operator"
         )
     - list: user_known_packet_socket_binaries
       items: ["bfdd","speaker"]
