@@ -9,7 +9,7 @@ meshConfig:
   extensionProviders:
     - name: jaeger
       opentelemetry:
-        port: 4317
+        port: 4318
         service: simplest-collector.observability.svc.cluster.local
         http:
           path: "/v1/traces"
