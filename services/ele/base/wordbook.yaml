@@ -37,8 +37,6 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: wordbook-deployment
-  annotations:
-    "sidecar.istio.io/logLevel": debug
   labels:
     service: ele
     app: wordbook
@@ -48,6 +46,8 @@ spec:
       app: wordbook
   template:
     metadata:
+      annotations:
+        "sidecar.istio.io/logLevel": debug
       labels:
         service: ele
         env: prod
