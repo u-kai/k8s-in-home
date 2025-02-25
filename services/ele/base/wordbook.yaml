@@ -69,6 +69,8 @@ spec:
                   key: url
             - name: MYSQL_DATABASE
               value: wordbook
+            - name: OTEL_EXPORTER_OTLP_ENDPOINT
+              value: "simplest-collector.observability.svc.cluster.local:4318"
             - name: FRONTEND_HOST
               value: "http://localhost:5173"
             - name: MYSQL_HOST
