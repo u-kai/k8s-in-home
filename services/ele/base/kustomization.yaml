@@ -7,3 +7,4 @@ resources:
   - router.yaml
   - translate.yaml
   - wordbook.yaml
+  - secret-store.yaml
