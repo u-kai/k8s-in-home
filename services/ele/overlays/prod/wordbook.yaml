@@ -11,4 +11,4 @@ spec:
           env:
             - name: FRONTEND_HOST
               value: https://www.kaiandkai.com
-          image: uk1012/wordbook:a2f4f8d22f08c4222f731622957db4c4003b2444
+          image: uk1012/wordbook:9918d83a71a211d18f325ca3a6a4f4ff54d910be
