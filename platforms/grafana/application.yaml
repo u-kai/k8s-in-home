@@ -15,63 +15,15 @@ spec:
     automated:
       prune: true
       selfHeal: true
-  source:
-    repoURL: https://grafana.github.io/helm-charts
-    targetRevision: 8.5.3
-    chart: grafana
-    helm:
-      values: |
-        persistence:
-          type: pvc
-          enabled: true
-        # Administrator credentials when not using an existing secret (see below)
-        adminUser: admin
-        # adminPassword: strongpassword
 
-        # Use an existing secret for the admin user.
-        admin:
-          ## Name of the secret. Can be templated.
-          existingSecret: "grafana-admin-password"
-          userKey: user
-          passwordKey: password
-        dashboardProviders:
-          dashboardproviders.yaml:
-            apiVersion: 1
-            providers:
-              - name: dashboards
-                type: file
-                updateIntervalSeconds: 30
-                options:
-                  path: /var/lib/grafana/dashboards
-                  foldersFromFilesStructure: true
-        dashboards:
-          default:
-            prometheus-stats:
-              gnetId: 2
-              revision: 2
-              datasource: Prometheus
-            node-exporter-full:
-              gnetId: 1860
-              revision: 37 
-              datasource: Prometheus
-            k8s-view-pods:
-              gnetId: 15760
-              revision: 32
-              datasource: Prometheus
-            istio:
-              gnetId: 7645
-              revision: 231
-              datasource: Prometheus
+  sources:
+    - repoURL: https://grafana.github.io/helm-charts
+      targetRevision: 8.5.3
+      chart: grafana
+      helm:
+        valueFiles:
+          - $values/platforms/grafana/values.yaml
 
-        datasources:
-          datasources.yaml:
-            apiVersion: 1
-            datasources:
-              - name: Prometheus
-                type: prometheus
-                url: http://prometheus-server
-                access: proxy
-                isDefault: true
-              - name: Loki
-                type: loki
-                url: http://loki.logging.svc.cluster.local:3100
+    - repoURL: https://github.com/u-kai/k8s-in-home.git
+      targetRevision: main
+      ref: values
