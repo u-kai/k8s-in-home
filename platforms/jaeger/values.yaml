@@ -1,2 +1,8 @@
 rbac:
   clusterRole: true
+jaeger:
+  spec:
+    allInOne:
+      annotations:
+        sidecar.istio.io/inject: "true"
+        sidecar.istio.io/rewriteAppHTTPProbers: "true"
