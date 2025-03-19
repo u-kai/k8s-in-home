@@ -125,4 +125,4 @@ metadata:
   name: cert-manager
   labels:
     name: cert-manager
-    istio-injection: enabled
+    #istio-injection: enabled
