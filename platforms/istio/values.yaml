@@ -1,10 +1,5 @@
 env:
-  - name: ENABLE_NATIVE_SIDECARS
-    value: "true"
-pilot:
-  env:
-    - name: ENABLE_NATIVE_SIDECARS
-      value: "true"
+  ENABLE_NATIVE_SIDECARS: "true"
 meshConfig:
   tracing:
     sampling: 100
