@@ -1,5 +1,5 @@
 env:
-  ENABLE_NATIVE_SIDECARS: "true"
+  ENABLE_NATIVE_SIDECARS: true
 meshConfig:
   tracing:
     sampling: 100
