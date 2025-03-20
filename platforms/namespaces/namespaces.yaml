@@ -20,6 +20,7 @@ metadata:
   name: argocd
   labels:
     name: argocd
+    istio-injection: enabled
     gateway-api: default
 ---
 apiVersion: v1
@@ -53,6 +54,7 @@ metadata:
   name: logging
   labels:
     name: logging
+    istio-injection: enabled
 ---
 apiVersion: v1
 kind: Namespace
@@ -60,6 +62,7 @@ metadata:
   name: monitoring
   labels:
     name: monitoring
+    istio-injection: enabled
 ---
 apiVersion: v1
 kind: Namespace
@@ -67,6 +70,7 @@ metadata:
   name: falco
   labels:
     name: falco
+    istio-injection: enabled
 ---
 apiVersion: v1
 kind: Namespace
@@ -96,6 +100,7 @@ metadata:
   name: external-secrets
   labels:
     name: external-secrets
+    istio-injection: enabled
 ---
 apiVersion: v1
 kind: Namespace
@@ -125,4 +130,4 @@ metadata:
   name: cert-manager
   labels:
     name: cert-manager
-    #istio-injection: enabled
+    istio-injection: enabled
