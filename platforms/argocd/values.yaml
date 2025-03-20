@@ -1,6 +1,5 @@
 redis-ha:
   enabled: true
-
 controller:
   replicas: 1
 
@@ -18,6 +17,8 @@ applicationSet:
   replicas: 2
 
 configs:
+  params:
+    server.insecure: true
   cm:
     resource.exclusions: |
       - apiGroups:
