@@ -26,7 +26,7 @@ spec:
       prune: true
       selfHeal: true
   ignoreDifferences:
-    - group: "metrics.k8s.io"
+    - group: "apiregistration.k8s.io"
       kind: "APIService"
       name: "v1beta1.metrics.k8s.io"
       jsonPointers:
