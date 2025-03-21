@@ -25,3 +25,8 @@ spec:
     automated:
       prune: true
       selfHeal: true
+  ignoreDifferences:
+    group: "metrics.k8s.io"
+    kind: "APIService"
+    jsonPointers:
+      - /spec/insecureSkipTLSVerify
