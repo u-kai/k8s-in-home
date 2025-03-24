@@ -95,12 +95,12 @@ metadata:
     istio-injection: enabled
 ---
 apiVersion: v1
-kind: Namespacte
+kind: Namespace
 metadata:
   name: external-secrets
   labels:
     name: external-secrets
-    #istio-injection: enabled
+    istio-injection: enabled
 ---
 apiVersion: v1
 kind: Namespace
