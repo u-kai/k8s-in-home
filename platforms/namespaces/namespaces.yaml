@@ -3,7 +3,6 @@ kind: Namespace
 metadata:
   name: in-house
   labels:
-    #istio-injection: enabled
 ---
 apiVersion: v1
 kind: Namespace
@@ -20,7 +19,6 @@ metadata:
   name: argocd
   labels:
     name: argocd
-    #istio-injection: enabled
     gateway-api: default
 ---
 apiVersion: v1
@@ -29,7 +27,6 @@ metadata:
   name: dev
   labels:
     name: dev
-    #istio-injection: enabled
 ---
 apiVersion: v1
 kind: Namespace
@@ -37,7 +34,6 @@ metadata:
   name: stg
   labels:
     name: stg
-    #istio-injection: enabled
 ---
 apiVersion: v1
 kind: Namespace
@@ -54,7 +50,6 @@ metadata:
   name: logging
   labels:
     name: logging
-    #istio-injection: enabled
 ---
 apiVersion: v1
 kind: Namespace
@@ -62,7 +57,6 @@ metadata:
   name: monitoring
   labels:
     name: monitoring
-    #istio-injection: enabled
 ---
 apiVersion: v1
 kind: Namespace
@@ -70,7 +64,6 @@ metadata:
   name: falco
   labels:
     name: falco
-    #istio-injection: enabled
 ---
 apiVersion: v1
 kind: Namespace
@@ -100,7 +93,6 @@ metadata:
   name: external-secrets
   labels:
     name: external-secrets
-    istio-injection: enabled
 ---
 apiVersion: v1
 kind: Namespace
@@ -108,7 +100,6 @@ metadata:
   name: ingress-nginx
   labels:
     name: ingress-nginx
-    #istio-injection: enabled
 ---
 apiVersion: v1
 kind: Namespace
@@ -123,7 +114,6 @@ metadata:
   name: observability
   labels:
     name: observability
-    #istio-injection: enabled
 ---
 apiVersion: v1
 kind: Namespace
@@ -131,4 +121,3 @@ metadata:
   name: cert-manager
   labels:
     name: cert-manager
-    #istio-injection: enabled
