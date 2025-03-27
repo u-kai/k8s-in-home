@@ -11,26 +11,3 @@ spec:
   nfs:
     server: 192.168.3.28
     path: /media/pi/ex-ssd/grafana
----
-apiVersion: external-secrets.io/v1beta1
-kind: ExternalSecret
-metadata:
-  name: grafana-admin-password
-  namespace: monitoring
-spec:
-  refreshInterval: 24h # SecretStoreプロバイダーから再度値を読み込む時間を指定
-  secretStoreRef:
-    name: secret-store
-    kind: SecretStore
-  target:
-    name: grafana-admin-password
-    creationPolicy: Owner
-  data: # 取得する秘匿情報を指定する
-    - secretKey: user
-      remoteRef:
-        key: grafana-admin-password
-        property: user
-    - secretKey: password
-      remoteRef:
-        key: grafana-admin-password
-        property: password
