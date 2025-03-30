@@ -15,136 +15,16 @@ spec:
     automated:
       prune: true
       selfHeal: true
-  source:
-    repoURL: https://prometheus-community.github.io/helm-charts
-    targetRevision: 25.24.0
-    chart: prometheus
-    helm:
-      values: |
-        server:
-          persistentVolume:
-            volumeName: "prometheus-pv"
-          replicaCount: 1
-        extraScrapeConfigs: |
-          - job_name: "node-ssh-banners"
-            metrics_path: /probe
-            params:
-              module: [ssh_banner]
-            kubernetes_sd_configs:
-              - role: node
-            relabel_configs:
-              - source_labels: [__address__]
-                target_label: __param_target
-              - source_labels: [__param_target]
-                target_label: instance
-              - target_label: __address__
-                replacement: prometheus-blackbox-exporter:9115
-
-          #          - job_name: istio-kubernetes-pods
-          #            metric_relabel_configs:
-          #            - action: drop
-          #              source_labels: [__name__]
-          #              regex: istio_agent_.*|istiod_.*|istio_build|citadel_.*|galley_.*|pilot_[^psx].*|envoy_cluster_[^u].*|envoy_cluster_update.*|envoy_listener_[^dh].*|envoy_server_[^mu].*|envoy_wasm_.*
-          #            - action: labeldrop
-          #              regex: chart|destination_app|destination_version|heritage|.*operator.*|istio.*|release|security_istio_io_.*|service_istio_io_.*|sidecar_istio_io_inject|source_app|source_version
-          #
-          - job_name: 'istiod'
-            kubernetes_sd_configs:
-            - role: endpoints
-              namespaces:
-                names:
-                - istio-system
-            relabel_configs:
-            - source_labels: [__meta_kubernetes_service_name, __meta_kubernetes_endpoint_port_name]
-              action: keep
-              regex: istiod;http-monitoring
-
-          - job_name: 'envoy-stats'
-            metrics_path: /stats/prometheus
-            kubernetes_sd_configs:
-            - role: pod
-          
-            relabel_configs:
-            - source_labels: [__meta_kubernetes_pod_container_port_name]
-              action: keep
-              regex: '.*-envoy-prom'
-
-        alertmanager:
-          enabled: true
-          persistence:
-            size: 2Gi
-
-          podSecurityContext:
-            runAsUser: 65534
-            runAsNonRoot: true
-            runAsGroup: 65534
-            fsGroup: 65534
-
-          extraSecretMounts:
-            - name: secret-file
-              mountPath: /etc/secret
-              secretName: alertmanager-slack-url
-              readOnly: true
-            - name: notifications-tmpl
-              mountPath: /alertmanager-tmpl
-              secretName: alertmanager-slack-templates
-              readOnly: true
-
-          config:
-            enabled: true
-            templates:
-              - /alertmanager-tmpl/notifications.tmpl
-            receivers:
-              - name: page
-                slack_configs:
-                  - channel: "#page"
-                    send_resolved: true
-                    api_url_file: /etc/secret/slack-api-url
-                    title: '{{ template "custom_title" . }}'
-                    text: '{{ template "custom_slack_message" . }}'
-                    actions:
-                      - type: button
-                        text: "GrafanaDashboard"
-                        url: "{{ .CommonAnnotations.grafana_dashboard }}"
-            route:
-              receiver: page
-        serverFiles:
-          alerting_rules.yml:
-            groups:
-              - name: CPU Usage
-                rules:
-                  - alert: HighCPUUsage
-                    expr: 100 * (1- avg by (instance,node) (rate(node_cpu_seconds_total{mode="idle"}[10m]))) > 85
-                    for: 1m
-                    labels:
-                      severity: page
-                    annotations:
-                      identifier: "{{ $labels.node }}"
-                      description:
-                        "{{ $labels.instance }} has a high CPU usage."
-                      grafana_dashboard: "http://grafana.example.com/d/k8s_views_pods/kubernetes-views-pods?orgId=1&refresh=30s"
-              - name: Memory Usages
-                rules:
-                  - alert: HighMemoryUsages
-                    expr: (node_memory_MemTotal_bytes - node_memory_MemFree_bytes - node_memory_Buffers_bytes - node_memory_Cached_bytes) / node_memory_MemTotal_bytes * 100 > 80
-                    for: 5m
-                    labels:
-                      severity: page
-                    annotations:
-                      identifier: "{{ $labels.node }}"
-                      description: "{{ $labels.instance }} has a high memory usage."
-                      grafana_dashboard: "http://grafana.example.com/d/k8s_views_pods/kubernetes-views-pods?orgId=1&refresh=30s"
-
-              - name: Node Down
-                rules:
-                  - alert: InstanceDown
-                    expr: up == 0
-                    for: 5m
-                    annotations:
-                      identifier: "{{ $labels.instance }}"
-                      description: "{{ $labels.job }} exporter job has been down for more than 5 minutes."
-                      grafana_dashboard: "http://grafana.example.com/d/rYdddlPWk/node-exporter-full?orgId=1&refresh=1m"
-
+  sources:
+    - repoURL: https://prometheus-community.github.io/helm-charts
+      targetRevision: 25.24.0
+      chart: prometheus
+      helm:
+        valueFiles:
+          - $values/platforms/prometheus/values.yaml
+    - repoURL: https://github.com/u-kai/k8s-in-home.git
+      targetRevision: main
+      ref: values
 ---
 apiVersion: argoproj.io/v1alpha1
 kind: Application
