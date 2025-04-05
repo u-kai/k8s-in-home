@@ -1,7 +1,20 @@
+configmapReload:
+  resources:
+    limits:
+      cpu: 100m
+      memory: 128Mi
+    requests:
+      cpu: 100m
+      memory: 128Mi
 server:
+  resources:
+    limits:
+      cpu: 500m
+      memory: 512Mi
+    requests:
+      cpu: 500m
+      memory: 512Mi
   global:
-    ## How frequently to scrape targets by default
-    ##
     scrape_interval: 5m
     evaluation_interval: 5m
   persistentVolume:
@@ -21,15 +34,6 @@ extraScrapeConfigs: |
         target_label: instance
       - target_label: __address__
         replacement: prometheus-blackbox-exporter:9115
-
-  #          - job_name: istio-kubernetes-pods
-  #            metric_relabel_configs:
-  #            - action: drop
-  #              source_labels: [__name__]
-  #              regex: istio_agent_.*|istiod_.*|istio_build|citadel_.*|galley_.*|pilot_[^psx].*|envoy_cluster_[^u].*|envoy_cluster_update.*|envoy_listener_[^dh].*|envoy_server_[^mu].*|envoy_wasm_.*
-  #            - action: labeldrop
-  #              regex: chart|destination_app|destination_version|heritage|.*operator.*|istio.*|release|security_istio_io_.*|service_istio_io_.*|sidecar_istio_io_inject|source_app|source_version
-  #
   - job_name: 'istiod'
     kubernetes_sd_configs:
     - role: endpoints

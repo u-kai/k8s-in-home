@@ -24,3 +24,7 @@ sudo systemctl restart containerd
 kubectl -n kube-system patch configmap kube-proxy -p '{"data":{"mode":"none"}}'
 
 ~/.kube 配下に config.eksctl.lock とか kubens を消すと no host route 出なくなった
+
+## metallb
+
+sudo ifconfig wlan0 promisc
