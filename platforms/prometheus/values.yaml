@@ -20,6 +20,10 @@ server:
   persistentVolume:
     volumeName: "prometheus-pv"
   replicaCount: 1
+  defaultFlagsOverride:
+    - "--storage.tsdb.retention.time=7d"
+    - "--config.file=/etc/config/prometheus.yml"
+    - "--storage.tsdb.path=/data"
 extraScrapeConfigs: |
   - job_name: "node-ssh-banners"
     metrics_path: /probe
