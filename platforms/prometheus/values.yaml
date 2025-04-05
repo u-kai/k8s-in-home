@@ -20,6 +20,9 @@ server:
   persistentVolume:
     volumeName: "prometheus-pv"
   replicaCount: 1
+  extraArgs:
+    storage.tsdb.retention.time: 7d
+
 extraScrapeConfigs: |
   - job_name: "node-ssh-banners"
     metrics_path: /probe
