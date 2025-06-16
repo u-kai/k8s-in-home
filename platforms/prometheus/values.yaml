@@ -59,6 +59,17 @@ extraScrapeConfigs: |
       action: keep
       regex: '.*-envoy-prom'
 
+  - job_name: 'kube-state-metrics'
+    kubernetes_sd_configs:
+    - role: pod
+    relabel_configs:
+      - source_labels: [__meta_kubernetes_pod_label_app_kubernetes_io_name]
+        action: keep
+        regex: kube-state-metrics
+      - source_labels: [__meta_kubernetes_pod_container_port_name]
+        action: keep
+        regex: http
+
 alertmanager:
   enabled: true
   persistence:
