@@ -18,7 +18,7 @@ server:
     scrape_interval: 5m
     evaluation_interval: 5m
   persistentVolume:
-    volumeName: "prometheus-pv"
+    volumeNam: "prometheus-pv"
   replicaCount: 1
   defaultFlagsOverride:
     - "--storage.tsdb.retention.time=7d"
@@ -67,8 +67,8 @@ extraScrapeConfigs: |
         action: keep
         regex: kube-state-metrics
       - source_labels: [__meta_kubernetes_pod_container_port_name]
-        action: keep
         regex: http
+        action: keep
 
 alertmanager:
   enabled: true
