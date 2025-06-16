@@ -18,7 +18,7 @@ server:
     scrape_interval: 5m
     evaluation_interval: 5m
   persistentVolume:
-    volumeNam: "prometheus-pv"
+    volumeName: "prometheus-pv"
   replicaCount: 1
   defaultFlagsOverride:
     - "--storage.tsdb.retention.time=7d"
