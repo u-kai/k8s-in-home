@@ -4,6 +4,10 @@ metadata:
   name: simplest
   namespace: observability
 spec:
+  collector:
+    resources:
+      limits:
+        memory: 512Mi
   ingress:
     ingressClassName: nginx
     hosts:
